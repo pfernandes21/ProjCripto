@@ -1,0 +1,27 @@
+Commands to run (not in the script)
+
+ATENÇAO: sendshares tem de ser corrido na diretorio onde estao as pastas trustee
+
+Encriptar chave privada:
+
+openssl bf -e -in privateKey.txt -out encriptedPrivateKey.txt 
+
+Para criar as shares(utilizar password que se usou ao encriptar):
+
+Rust stuf:
+source ~/.profile
+source ~/.cargo/env
+# Make 4 shares with recombination threshold 3
+echo "Tyler Durden isn't real." | secret-share-split -n 4 -t 3 >shares.txt
+
+
+Para recombinar as shares:
+# Take the first 3 shares and combine them
+head -n 3 shares.txt | secret-share-combine
+
+./sendShares
+
+
+
+Desecriptar chave privada:
+openssl bf -d -in encriptedPrivateKey.txt -out decriptedPrivateKey.txt

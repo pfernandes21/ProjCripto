@@ -1,0 +1,3 @@
+/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/VoterApp/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/VoterApp/CMakeFiles/voter.dir
+/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/VoterApp/CMakeFiles/edit_cache.dir
