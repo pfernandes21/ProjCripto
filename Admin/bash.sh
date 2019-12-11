@@ -1,4 +1,3 @@
-chmod u+x Admin/bash.sh
 #Create CA certificate and send to Tally app
 rm -r Admin/CA
 mkdir Admin/CA
