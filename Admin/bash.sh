@@ -49,7 +49,7 @@ do
     cp Certs/clientPrivateKey${i}.key ../VoterApp/Voter${i}/;
     cp Certs/clientPublicKey${i}.key ../VoterApp/Voter${i}/;
     #Send Election public key to Voter
-    cp electionKeys/publicKey.txt ../VoterApp/Voter${i}/electionPublicKey.txt;
+    cp ElectionKeys/publicKey.txt ../VoterApp/Voter${i}/electionPublicKey.txt;
 done
 #
 #encryptar private key com password
