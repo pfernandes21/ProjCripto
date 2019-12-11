@@ -32,17 +32,21 @@ mv *.p12 Certs;
 mv *.csr Certs;
 mv *.crt Certs;
 #
+cd ../VoterApp;
 #Create Voters Directories
 for (( i=1; i<=${1}; i++ ))
 do
-    rm -r VoterApp/Voter${i};
-    mkdir VoterApp/Voter${i};
+    rm -r Voter${i};
+    mkdir Voter${i};
 done
+#
+cd ../Admin;
+#
 #Send keys and files to Voters
 for (( i=1; i<=${1}; i++ ))
 do
     #Send root CA cert to Voter
-    cp CA/my-ca.crt ../VoterApp/client${i}/;
+    cp CA/my-ca.crt ../VoterApp/Voter${i}/;
     #Send voter private key and certificate
     cp Certs/client-cert${i}.crt ../VoterApp/Voter${i}/;
     cp Certs/client-cert${i}.key ../VoterApp/Voter${i}/;
