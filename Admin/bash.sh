@@ -55,7 +55,13 @@ do
     cp ElectionKeys/publicKey.txt ../VoterApp/Voter${i}/electionPublicKey.txt;
 done
 #
-#encrypte private key with password
+#Encrypte private key with password
 echo "Insert Private Key Password:";
 read pass;
 openssl enc -aes-128-cbc -md md5 -e -in Admin/ElectionKeys/privateKey.txt -out Admin/ElectionKeys/encriptedPrivateKey.txt -k $pass -p;
+#
+#Create password shares
+source ~/.profile
+source ~/.cargo/env
+# Make 4 shares with recombination threshold 3
+echo "Tyler Durden isn't real." | secret-share-split -n 4 -t 3 >shares.txt
