@@ -1,8 +1,8 @@
-#define NUMBERTRUSTEES 5
 #define COMMANDLENGTH 500
 
 #define CANDIDATENUMBER 5
 #define NUMBERVOTERS 2
+#define NUMBERTRUSTEES 5
 
 #pragma once
 
