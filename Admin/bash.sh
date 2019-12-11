@@ -58,7 +58,7 @@ done
 #Encrypte private key with password
 echo "Insert Private Key Password:";
 read pass;
-openssl enc -aes-128-cbc -md md5 -e -in Admin/ElectionKeys/privateKey.txt -out Admin/ElectionKeys/encriptedPrivateKey.txt -k $pass -p;
+openssl enc -aes-128-cbc -md md5 -e -in ElectionKeys/privateKey.txt -out ElectionKeys/encriptedPrivateKey.txt -k $pass -p;
 #
 #Create password shares
 source ~/.profile
