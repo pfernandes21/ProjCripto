@@ -44,12 +44,12 @@ do
     #Send root CA cert to Voter
     cp CA/my-ca.crt ../VoterApp/client${i}/;
     #Send voter private key and certificate
-    cp Certs/client-cert${i}.crt ../VoterApp/client${i}/;
-    cp Certs/client-cert${i}.key ../VoterApp/client${i}/;
-    cp Certs/clientPrivateKey${i}.key ../VoterApp/client${i}/;
-    cp Certs/clientPublicKey${i}.key ../VoterApp/client${i}/;
+    cp Certs/client-cert${i}.crt ../VoterApp/Voter${i}/;
+    cp Certs/client-cert${i}.key ../VoterApp/Voter${i}/;
+    cp Certs/clientPrivateKey${i}.key ../VoterApp/Voter${i}/;
+    cp Certs/clientPublicKey${i}.key ../VoterApp/Voter${i}/;
     #Send Election public key to Voter
-    cp electionKeys/publicKey.txt ../VoterApp/client${i}/electionPublicKey.txt;
+    cp electionKeys/publicKey.txt ../VoterApp/Voter${i}/electionPublicKey.txt;
 done
 #
-# #encryptar private key com password
+#encryptar private key com password
