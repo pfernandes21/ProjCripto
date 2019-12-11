@@ -30,8 +30,8 @@ void createKeys()
 	ofstream privateKeyFile;
 	ofstream publicKeyFile;
   	
-	privateKeyFile.open ("ElectionKeys/privateKey.txt");
-	publicKeyFile.open ("ElectionKeys/publicKey.txt");  
+	privateKeyFile.open ("Admin/ElectionKeys/privateKey.txt");
+	publicKeyFile.open ("Admin/ElectionKeys/publicKey.txt");  
 	secret_key.save(privateKeyFile);
 	public_key.save(publicKeyFile);
 	
@@ -63,8 +63,8 @@ void createWeights()
 	//Load key and Weights
 	ifstream publicKeyFile;
 	ifstream privateKeyFile;
-	publicKeyFile.open("ElectionKeys/publicKey.txt");
-	privateKeyFile.open("ElectionKeys/privateKey.txt");
+	publicKeyFile.open("Admin/ElectionKeys/publicKey.txt");
+	privateKeyFile.open("Admin/ElectionKeys/privateKey.txt");
 
 	cout << "Load public key" << endl;
 	public_key.load(context, publicKeyFile);
@@ -90,7 +90,7 @@ void createWeights()
 		encryptedWeight.save(myfile);
 		myfile.close();
 		//Move weight to Tally
-		sprintf(command, "mv %s ../TallyApp/", filename);
+		sprintf(command, "mv Admin/%s TallyApp/", filename);
 		system(command);			
 	}
 
@@ -101,9 +101,9 @@ void createWeights()
 
 int main()
 {
-	system("./bash.sh");
 	createKeys();
 	createWeights();
+	system("./Admin/bash.sh");
 
 	return 0;
 }

@@ -39,7 +39,6 @@ do
     rm -r Voter${i};
     mkdir Voter${i};
 done
-#
 cd ../Admin;
 #
 #Send keys and files to Voters
@@ -56,4 +55,7 @@ do
     cp ElectionKeys/publicKey.txt ../VoterApp/Voter${i}/electionPublicKey.txt;
 done
 #
-#encryptar private key com password
+#encrypte private key with password
+echo "Insert Private Key Password:";
+read pass;
+openssl enc -aes-128-cbc -md md5 -e -in Admin/ElectionKeys/privateKey.txt -out Admin/ElectionKeys/encriptedPrivateKey.txt -k $pass -p;
