@@ -61,7 +61,21 @@ read pass;
 openssl enc -aes-128-cbc -md md5 -e -in ElectionKeys/privateKey.txt -out ElectionKeys/encriptedPrivateKey.txt -k $pass -p;
 #
 #Create password shares
-source ~/.profile
-source ~/.cargo/env
+source ~/.profile;
+source ~/.cargo/env;
 # Make 4 shares with recombination threshold 3
-echo "Tyler Durden isn't real." | secret-share-split -n 4 -t 3 >shares.txt
+echo "Tyler Durden isn't real." | secret-share-split -n 4 -t 3 > shares.txt;
+#
+cd ..;
+rm -r Trustees;
+mkdir Trustees;
+cd Trustees;
+#Read shares from file
+declare -i x=1;
+while IFS= read -r line; 
+do
+    mkdir Trustee${x};
+    touch Trustee${x}/share${x}.txt;
+    echo ${line} >> Trustee${x}/share${x}.txt;
+    ((x=x+1));
+done < ../Admin/shares.txt
