@@ -93,4 +93,4 @@ do
     echo ${line} >> Trustee${x}/share${x}.txt;
     ((x=x+1));
 done < ../Admin/shares.txt
-rm shares.txt;
+rm ../Admin/shares.txt;
