@@ -364,9 +364,6 @@ void Base64Decode(const char* b64message, unsigned char** buffer, size_t* length
 
 char* signMessage(std::string privateKey, std::string plainText) 
 {
-    cout << "here" << endl;
-    cout << plainText.length() << endl;
-    cout << "mermao" << endl;
     RSA* privateRSA = createPrivateRSA(privateKey); 
     unsigned char* encMessage;
     char* base64Text;
