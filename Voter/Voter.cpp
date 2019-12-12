@@ -183,7 +183,7 @@ int main()
 		if(newCandidate)
 		{
 			votesFile << '"' << filename << '"' << " ";	
-			sprintf(command, "mv Voter/%s Ballot/", filename.c_str());
+			sprintf(command, "mv %s Ballot/", filename.c_str());
 			system(command);
 		}
 	}
@@ -234,7 +234,7 @@ int main()
 		if(newCandidate)
 		{
 			votesFile << '"' << filename << '"' << " ";	
-			sprintf(command, "mv Voter/%s Ballot/", filename.c_str());
+			sprintf(command, "mv %s Ballot/", filename.c_str());
 			system(command);
 		}
 	}
@@ -253,7 +253,7 @@ int main()
 	filename = "Voter/vote" + to_string(myVote) + ".txt";
 	votesFile.close();
 	tempSignFile.close();
-	sprintf(command, "mv Voter/%s Ballot/", filename.c_str());
+	sprintf(command, "mv %s Ballot/", filename.c_str());
 	system(command);
 	system("rm Voter/signatureTemp.txt");
 
