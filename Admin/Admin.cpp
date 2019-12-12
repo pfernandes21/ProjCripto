@@ -99,7 +99,7 @@ void createWeights(int NUMBERVOTERS)
 
 }
 
-int main(int argc, char *argv)
+int main(int argc, char *argv[])
 {
 	if(argc != 4)
 	{
@@ -107,7 +107,10 @@ int main(int argc, char *argv)
 		return 0;
 	}
 
-	int n_candidates = stoi(argv[1]), n_voters = stoi(argv[2]), n_trustees = stoi(argv[3]);
+	int n_candidates = 0, n_voters = 0, n_trustees = 0;
+	n_candidates = stoi(argv[1]);
+	n_voters = stoi(argv[2]);
+	n_trustees = stoi(argv[3]);
 
 	if(!(n_candidates > 0 && n_voters > 0 && n_trustees > 0))
 	{
