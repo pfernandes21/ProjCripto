@@ -78,7 +78,7 @@ cd ..;
 source ~/.profile;
 source ~/.cargo/env;
 # Make NTrustees shares with recombination the same threshold
-echo "Tyler Durden isn't real." | secret-share-split -n ${3} -t ${3} > shares.txt;
+echo ${pass} | secret-share-split -n ${3} -t ${3} > shares.txt;
 #
 cd ..;
 rm -r Trustees;
