@@ -85,7 +85,7 @@ int main()
 	}
 	else
 	{
-		return;
+		return 0;
 	}
 
 	//update id do voto no ficheiro
@@ -98,7 +98,7 @@ int main()
 	}
 	else
 	{
-		return;
+		return 0;
 	}
 
 	//ficheiro de voto
@@ -188,5 +188,5 @@ int main()
 	/* Remove error strings */
 	ERR_free_strings();
 
-	return;
+	return 0;
 }
