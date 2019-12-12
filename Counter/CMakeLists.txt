@@ -11,7 +11,6 @@ find_package(SEAL 3.4.4 EXACT REQUIRED
     # Providing a path so this can be built without installing Microsoft SEAL
     PATHS ${SEALExamples_SOURCE_DIR}/../src/cmake
 )
-find_package(OpenSSL REQUIRED)
 
 # Link Microsoft SEAL
-target_link_libraries(counterApp SEAL::seal OpenSSL::SSL)
+target_link_libraries(counterApp SEAL::seal)

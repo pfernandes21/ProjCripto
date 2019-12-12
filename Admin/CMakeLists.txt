@@ -6,14 +6,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)
 
 add_executable(adminApp Admin.cpp)
 
-# Import OpenSSL
-find_package(OpenSSL REQUIRED)
-
 # Import Microsoft SEAL
 find_package(SEAL 3.4.4 EXACT REQUIRED
     # Providing a path so this can be built without installing Microsoft SEAL
     PATHS ${SEALExamples_SOURCE_DIR}/../src/cmake
 )
 
-# Link Microsoft SEAL && OpenSSL
-target_link_libraries(adminApp SEAL::seal OpenSSL::SSL)
+# Link Microsoft SEAL
+target_link_libraries(adminApp SEAL::seal)
