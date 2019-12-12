@@ -1,6 +1,3 @@
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT license.
-
 cmake_minimum_required(VERSION 3.12)
 
 project(SEALExamples VERSION 3.4.4 LANGUAGES CXX)
@@ -19,4 +16,4 @@ find_package(SEAL 3.4.4 EXACT REQUIRED
 )
 
 # Link Microsoft SEAL && OpenSSL
-target_link_libraries(adminApp SEAL::seal OpenSSL::SSL OpenSSL::Crypto)
+target_link_libraries(adminApp SEAL::seal OpenSSL::SSL)
