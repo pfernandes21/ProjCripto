@@ -102,8 +102,11 @@ void createWeights()
 int main()
 {
 	createKeys();
-	createWeights();
-	system("./Admin/bash.sh");
+	createWeights();~
+
+	char command[100];
+	sprintf(command, "./Admin/bash.sh %i", NUMBERVOTERS);
+	system(command);			
 
 	return 0;
 }
