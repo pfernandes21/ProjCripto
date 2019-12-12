@@ -80,8 +80,6 @@ int main()
 	/* Load config file, and other important initialisation */
 	OPENSSL_config(NULL);
 
-	/* ... Do some crypto stuff here ... */
-
 	//Fetch private and public keys of voter in order to sign
 	string filename = "Voter/Voter" + to_string(myId) + "/clientPublicKey" + to_string(myId) + ".key" ;
 	std::ifstream publicKeyFile(filename);
