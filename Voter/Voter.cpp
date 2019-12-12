@@ -94,7 +94,7 @@ int main()
 	cout << myprivateKey;
 
 	//get id do voto no ficheiro
-	ifstream IdFileIn("id.txt", ios::in);
+	ifstream IdFileIn("Voter/id.txt", ios::in);
 	if (IdFileIn.is_open())
 	{
 		while (getline(IdFileIn, line))
@@ -110,7 +110,7 @@ int main()
 
 	//update id do voto no ficheiro
 	myVote++;
-	ofstream IdFileOut("id.txt", ios::out);
+	ofstream IdFileOut("Voter/id.txt", ios::out);
 	if (IdFileOut.is_open())
 	{
 		IdFileOut << to_string(myVote) << endl;
@@ -122,14 +122,14 @@ int main()
 	}
 
 	//ficheiro de voto
-	filename = "vote" + to_string(myVote) + ".txt";
+	filename = "Voter/vote" + to_string(myVote) + ".txt";
 	ofstream votesFile(filename);
 	votesFile << to_string(myId) << " " << to_string(hour) << "," << to_string(minute) << "," << to_string(second) << " ";
 
 	int vote;
 	int candidate = 1;
 	int *candidates = new int[NUMBERCANDIDATES];
-	ofstream tempSignFile("signatureTemp.txt");
+	ofstream tempSignFile("Voter/signatureTemp.txt");
 	string timestamp = to_string(hour) + "," + to_string(minute) + "," + to_string(second);
 
 	while (candidate >= 0)
@@ -149,7 +149,7 @@ int main()
 		candidates[candidate] = 1;
 
 		//ficheiro de voto por candidato
-		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(candidate) + ".txt";
+		filename = "Voter/" + to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(candidate) + ".txt";
 
 		//check if file already exists (trying to vote twice on the same candidate)
 		ifstream fcheck(filename);
@@ -200,7 +200,7 @@ int main()
 		}
 		
 		//ficheiro de voto por candidato
-		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(i) + ".txt";
+		filename = "Voter/" + to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(i) + ".txt";
 
 		//check if file already exists (trying to vote twice on the same candidate)
 		ifstream fcheck(filename);
@@ -243,19 +243,19 @@ int main()
 	tempSignFile << timestamp;
 
 	//Make signature from tempFile
-	std::ifstream tempFile("signatureTemp.txt");
+	std::ifstream tempFile("Voter/signatureTemp.txt");
 	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
     std::istreambuf_iterator<char>());
   	char* signature = signMessage(myprivateKey, dataTempFile);
 	votesFile << ' ' << signature;
 
   	/* Clean up */
-	filename = "vote" + to_string(myVote) + ".txt";
+	filename = "Voter/vote" + to_string(myVote) + ".txt";
 	votesFile.close();
 	tempSignFile.close();
 	sprintf(command, "mv Voter/%s Ballot/", filename.c_str());
 	system(command);
-	system("rm signatureTemp.txt");
+	system("rm Voter/signatureTemp.txt");
 
 	/* Removes all digests and ciphers */
 	EVP_cleanup();
