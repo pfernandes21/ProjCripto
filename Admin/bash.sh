@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #Initialize config file
-printf "${2}'\n'${1}'\n'${3}" > 'Config.txt';
+printf "${2}\n${1}\n${3}" > 'Config.txt';
 cd Admin/;
 #
 #Copy Election public key to Tally
@@ -88,9 +88,9 @@ cd Trustees;
 declare -i x=1;
 while IFS= read -r line; 
 do
-    mkdir Trustee${x};
-    touch Trustee${x}/share${x}.txt;
-    echo ${line} >> Trustee${x}/share${x}.txt;
+    mkdir "Trustee${x}";
+    touch "Trustee${x}/share${x}.txt";
+    echo ${line} >> "Trustee${x}/share${x}.txt";
     ((x=x+1));
 done < ../Admin/shares.txt
 rm ../Admin/shares.txt;
