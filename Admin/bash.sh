@@ -37,7 +37,7 @@ mv *.p12 Certs;
 mv *.csr Certs;
 mv *.crt Certs;
 #
-cd ../VoterApp;
+cd ../Voter;
 #Create Voters Directories
 for (( i=1; i<=${1}; i++ ))
 do
@@ -50,14 +50,14 @@ cd ../Admin;
 for (( i=1; i<=${1}; i++ ))
 do
     #Send root CA cert to Voter
-    cp CA/my-ca.crt ../VoterApp/Voter${i}/;
+    cp CA/my-ca.crt ../Voter/Voter${i}/;
     #Send voter private key and certificate
-    cp Certs/client-cert${i}.crt ../VoterApp/Voter${i}/;
-    cp Certs/client-cert${i}.key ../VoterApp/Voter${i}/;
-    cp Certs/clientPrivateKey${i}.key ../VoterApp/Voter${i}/;
-    cp Certs/clientPublicKey${i}.key ../VoterApp/Voter${i}/;
+    cp Certs/client-cert${i}.crt ../Voter/Voter${i}/;
+    cp Certs/client-cert${i}.key ../Voter/Voter${i}/;
+    cp Certs/clientPrivateKey${i}.key ../Voter/Voter${i}/;
+    cp Certs/clientPublicKey${i}.key ../Voter/Voter${i}/;
     #Send Election public key to Voter
-    cp ElectionKeys/publicKey.txt ../VoterApp/Voter${i}/electionPublicKey.txt;
+    cp ElectionKeys/publicKey.txt ../Voter/Voter${i}/electionPublicKey.txt;
 done
 #
 #Encrypte private key with password
