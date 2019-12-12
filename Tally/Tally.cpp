@@ -122,8 +122,7 @@ int main()
 
 	cout << "Number of votes in the Ballot: " << numberVotes << endl;
 
-	//Cicle for reading all votes in ballot
-
+	string lastTimestamps[NUMBERVOTERS] = {"0"};
 	string voteFileName;
 	string signature;
 	string voterKeyFileName;
@@ -140,6 +139,7 @@ int main()
 	//Fetch the voter Weights
 	string voterWeightFileName;
 	ifstream voterWeightFile;
+	//Cicle for reading all votes in ballot
 	for (int n = 0; n < NUMBERVOTERS; n++) 
 	{
 		voterWeightFileName = "Tally/encryptedWeight_" + to_string(n);
