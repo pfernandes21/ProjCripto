@@ -1,39 +1,63 @@
-#include "../resources.h"
+#include "examples.h"
 
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <ctime>
 
+#include <openssl/conf.h>
+#include <openssl/evp.h>
+#include <openssl/err.h>
+
+#include <openssl/aes.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+#include <openssl/ssl.h>
+#include <openssl/bio.h>
+#include <assert.h>
+
+
+
 using namespace std;
 using namespace seal;
 
 
-int main()
+//private key comes from openssl rsa -in client-cert0.key -check (need password)
+//or better (cleans the file) comes from openssl rsa -in client-cert0.key -out newPrivateKey.key 
+//(need password)
+
+std::string privateKey ="-----BEGIN RSA PRIVATE KEY-----\n"\
+"MIICXQIBAAKBgQCmg00nu42DV1OMf8R+nb4z3pXDlLRf6/ZeOFu1mrRRmWMsNpHq\n"\
+"fl+OSUAFnJ8pDU5D229CxZzEmBmQEj6Cjs/9Rt6BM2f3Q5awCdUCDkogS/hPFB9u\n"\
+"CvgQgTfuxg8s+RdVKHNDqjQGw509RvtofCAyC8AdKUUh6t37xhTKkb1PWQIDAQAB\n"\
+"AoGAIDGctkTl3HIC3lRJqm1XO/IaJKFYqn8VuCvPV3Jc0LYGXaMDXUInuXviG/On\n"\
+"Nimzax0/CrroT35U2u0cFuQDxFVyw2vOlp1rMbDO4WdBgVZA4zunx2l6rL3/iTYx\n"\
+"7uUsDJPbDZPnsXn0m4hziP/PraxgRfUmgTSpnKcPUhXzuDECQQDcBVKc3uqceNvo\n"\
+"3Tby8bv6GHcitxauAI0IHgbSNa7cp5GGSXvMCXLQxDk8JUfReLtcwLWRFDnbCvIw\n"\
+"jV6u0rEdAkEAwb39lS531TRvK9idbHbyrerilE8gM7rBv0huRYelXVTrLIE7wbGm\n"\
+"zkHc2JvfGVDccrYPDb8cz2DmnkcXFhiebQJAKrvZ7OAbH2MWC2eT+aHcCdpgoVyA\n"\
+"SjGPMulqF8AXg4IEcNmq8tlO9J94Imd3SIczlPNVEKWmCxZYLff3UOtZPQJBALYQ\n"\
+"p8PQdjY6XxqSJmXuZeIAMEr1DKrwHvB1zYKzlTfe/F3HWHOOUdXUWQiJeh9dOLzn\n"\
+"z7+4UAel5TLqVYyjOAUCQQCNTH5B2kox64XkRc7X57gs8KqbiZ+yUU2dbPLZcq7i\n"\
+"GkEmBHumFd3Nsv1oVadeE6FLHxSHLMoAD9c1v4YlKlZj\n"\
+"-----END RSA PRIVATE KEY-----\n\0";
+
+
+
+//public key comes from openssl x509 -pubkey -noout -in client-cert0.crt
+
+std::string publicKey ="-----BEGIN PUBLIC KEY-----\n"\
+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmg00nu42DV1OMf8R+nb4z3pXD\n"\
+"lLRf6/ZeOFu1mrRRmWMsNpHqfl+OSUAFnJ8pDU5D229CxZzEmBmQEj6Cjs/9Rt6B\n"\
+"M2f3Q5awCdUCDkogS/hPFB9uCvgQgTfuxg8s+RdVKHNDqjQGw509RvtofCAyC8Ad\n"\
+"KUUh6t37xhTKkb1PWQIDAQAB\n"\
+"-----END PUBLIC KEY-----\n";
+
+
+void voterApp()
 {	
+
 	cout << "Voter App" << endl;
-
-	int NUMBERCANDIDATES, NUMBERVOTERS;
-	string line;
-	ifstream configFile;
-	configFile.open("Config.txt");
-	if(getline(configFile, line))
-	{
-		NUMBERCANDIDATES = stoi(line);
-	}
-	else
-	{
-		return 0;
-	}
-
-	if(getline(configFile, line))
-	{
-		NUMBERVOTERS = stoi(line);
-	}
-	else
-	{
-		return 0;
-	}
 
 	//SEAL Define context parameters
 	EncryptionParameters parms(scheme_type::BFV);
@@ -46,17 +70,17 @@ int main()
 	KeyGenerator keygen(context);
 	PublicKey public_key = keygen.public_key();
 	SecretKey secret_key = keygen.secret_key();
-    Evaluator evaluator(context);
+    	Evaluator evaluator(context);
 	IntegerEncoder encoder(context);
-
 	//Load key and Weights
 	ifstream electionPublicKeyFile;
-	electionPublicKeyFile.open("Voter/publicKey.txt");
+	electionPublicKeyFile.open("Administrator/electionKeys/publicKey.txt");
 	cout << "Load public key" << endl;
 	public_key.load(context, electionPublicKeyFile);
 	Encryptor encryptor(context, public_key);
-	electionPublicKeyFile.close();
 
+
+	electionPublicKeyFile.close();
 	//timestamp
 	int hour = (time(0) / 3600) % 24;
 	int minute = (time(0) % 3600) / 60;
@@ -68,29 +92,36 @@ int main()
 	//id do votante e id do voto
 	int myId = 0, myVote = 0;
 
+	string line;
+
 	cout << "Insira o seu numero de votante:" << endl;
 	cin >> myId;
 
-	/* Load the human readable error strings for libcrypto */
-	ERR_load_crypto_strings();
 
-	/* Load all digest and cipher algorithms */
-	OpenSSL_add_all_algorithms();
+  /* Load the human readable error strings for libcrypto */
+  ERR_load_crypto_strings();
 
-	/* Load config file, and other important initialisation */
-	OPENSSL_config(NULL);
+  /* Load all digest and cipher algorithms */
+  OpenSSL_add_all_algorithms();
 
-	/* ... Do some crypto stuff here ... */
+  /* Load config file, and other important initialisation */
+  OPENSSL_config(NULL);
 
+  /* ... Do some crypto stuff here ... */
+
+	string filename = "client"+to_string(myId)+"/clientPublicKey"+to_string(myId)+".key" ;
 	//Fetch private and public keys of voter in order to sign
-	string filename = "Voter/Voter" + to_string(myId) + "/clientPublicKey" + to_string(myId) + ".key" ;
 	std::ifstream publicKeyFile(filename);
-	std::string mypublicKey((std::istreambuf_iterator<char>(publicKeyFile)), std::istreambuf_iterator<char>());
-	cout << mypublicKey;
+	std::string mypublicKey((std::istreambuf_iterator<char>(publicKeyFile)),
+                 std::istreambuf_iterator<char>());
 
-	filename = "Voter/Voter" + to_string(myId) + "/clientPrivateKey" + to_string(myId) + ".key";
+	cout << mypublicKey;
+	filename = "client"+to_string(myId)+"/clientPrivateKey"+to_string(myId)+".key" ;
+
 	std::ifstream privateKeyFile(filename);
-	std::string myprivateKey((std::istreambuf_iterator<char>(privateKeyFile)), std::istreambuf_iterator<char>());
+	std::string myprivateKey((std::istreambuf_iterator<char>(privateKeyFile)),
+                 std::istreambuf_iterator<char>());
+
 	cout << myprivateKey;
 
 	//get id do voto no ficheiro
@@ -105,7 +136,7 @@ int main()
 	}
 	else
 	{
-		return 0;
+		return;
 	}
 
 	//update id do voto no ficheiro
@@ -118,7 +149,7 @@ int main()
 	}
 	else
 	{
-		return 0;
+		return;
 	}
 
 	//ficheiro de voto
@@ -128,7 +159,6 @@ int main()
 
 	int vote;
 	int candidate = 1;
-	int *candidates = new int[NUMBERCANDIDATES];
 	ofstream tempSignFile("signatureTemp.txt");
 	string timestamp = to_string(hour) + "," + to_string(minute) + "," + to_string(second);
 
@@ -146,11 +176,10 @@ int main()
 		cout << "Insira o número de votos:" << endl;
 		cin >> vote;
 		
-		candidates[candidate] = 1;
-
 		//ficheiro de voto por candidato
 		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(candidate) + ".txt";
 
+
 		//check if file already exists (trying to vote twice on the same candidate)
 		ifstream fcheck(filename);
 		bool newCandidate = true;
@@ -158,9 +187,7 @@ int main()
 		{
 			cout << endl << "You already voted on this candidate"<< endl;
 			newCandidate =false;
-		} 
-		else 
-		{
+		} else {
 			cout << endl << "Voting in a new candidate"<< endl;
 			newCandidate = true;
 		}
@@ -173,69 +200,21 @@ int main()
 		if (candidateVoteFile.is_open())
 		{	
 			//encrypt and store vote
-			voteValue = encoder.encode(vote);	
+			voteValue=encoder.encode(vote);	
 			encryptor.encrypt(voteValue, encryptedVote);
 			encryptedVote.save(candidateVoteFile);
 			encryptedVote.save(tempSignFile);
 			candidateVoteFile.close();
+
 		}
+
+
 
 		if(newCandidate)
 		{
-			votesFile << '"' << filename << '"' << " ";	
-			sprintf(command, "mv Voter/%s Ballot/", filename.c_str());
-			system(command);
-		}
-	}
-
-	for(int i = 0; i < NUMBERCANDIDATES; i++)
-	{
-		if(candidates[i] == 1)
-		{
-			continue;
-		}
-		else
-		{
-			vote = 0;
-		}
-		
-		//ficheiro de voto por candidato
-		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(i) + ".txt";
-
-		//check if file already exists (trying to vote twice on the same candidate)
-		ifstream fcheck(filename);
-		bool newCandidate = true;
-		if(fcheck.good())
-		{
-			cout << endl << "You already voted on this candidate"<< endl;
-			newCandidate =false;
-		} 
-		else 
-		{
-			cout << endl << "Voting in a new candidate"<< endl;
-			newCandidate = true;
-		}
-		fcheck.close();
-		
-		ofstream candidateVoteFile(filename);
-		Plaintext voteValue;
-		Ciphertext encryptedVote;
-
-		if (candidateVoteFile.is_open())
-		{	
-			//encrypt and store vote
-			voteValue = encoder.encode(vote);	
-			encryptor.encrypt(voteValue, encryptedVote);
-			encryptedVote.save(candidateVoteFile);
-			encryptedVote.save(tempSignFile);
-			candidateVoteFile.close();
-		}
-
-		if(newCandidate)
-		{
-			votesFile << '"' << filename << '"' << " ";	
-			sprintf(command, "mv Voter/%s Ballot/", filename.c_str());
-			system(command);
+		votesFile << '"' << filename << '"' << " ";	
+		sprintf(command, "mv %s Ballot/", filename.c_str());
+		system(command);
 		}
 	}
 	
@@ -245,26 +224,28 @@ int main()
 	//Make signature from tempFile
 	std::ifstream tempFile("signatureTemp.txt");
 	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
-    std::istreambuf_iterator<char>());
+                 std::istreambuf_iterator<char>());
+	
   	char* signature = signMessage(myprivateKey, dataTempFile);
 	votesFile << ' ' << signature;
-
-  	/* Clean up */
-	filename = "vote" + to_string(myVote) + ".txt";
 	votesFile.close();
+
+  /* Clean up */
+	filename = "vote" + to_string(myVote) + ".txt";
+	
 	tempSignFile.close();
-	sprintf(command, "mv Voter/%s Ballot/", filename.c_str());
+	sprintf(command, "mv %s Ballot/", filename.c_str());
 	system(command);
 	system("rm signatureTemp.txt");
 
-	/* Removes all digests and ciphers */
-	EVP_cleanup();
+  /* Removes all digests and ciphers */
+  EVP_cleanup();
 
-	/* if you omit the next, a small leak may be left when you make use of the BIO (low level API) for e.g. base64 transformations */
-	CRYPTO_cleanup_all_ex_data();
+  /* if you omit the next, a small leak may be left when you make use of the BIO (low level API) for e.g. base64 transformations */
+  CRYPTO_cleanup_all_ex_data();
 
-	/* Remove error strings */
-	ERR_free_strings();
+  /* Remove error strings */
+  ERR_free_strings();
 
-	return 0;
+	return;
 }
