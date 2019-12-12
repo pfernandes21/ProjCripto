@@ -129,7 +129,7 @@ int main()
 	int vote;
 	int candidate = 1;
 	int *candidates = new int[NUMBERCANDIDATES];
-	ofstream tempSignFile("Voter/signatureTemp.txt");
+	ofstream tempSignFile("signatureTemp.txt");
 	string timestamp = to_string(hour) + "," + to_string(minute) + "," + to_string(second);
 
 	while (candidate >= 0)
@@ -224,7 +224,7 @@ int main()
 	tempSignFile << timestamp;
 
 	//Make signature from tempFile
-	std::ifstream tempFile("Voter/signatureTemp.txt");
+	std::ifstream tempFile("signatureTemp.txt");
 	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
     std::istreambuf_iterator<char>());
   	char* signature = signMessage(myprivateKey, dataTempFile);
@@ -236,7 +236,7 @@ int main()
 	tempSignFile.close();
 	sprintf(command, "mv %s Ballot/", filename.c_str());
 	system(command);
-	system("rm Voter/signatureTemp.txt");
+	system("rm signatureTemp.txt");
 
 	/* Removes all digests and ciphers */
 	EVP_cleanup();
