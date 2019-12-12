@@ -9,7 +9,7 @@ using namespace seal;
 int main(){
 	cout << "Counter" << endl;
 
-	int NUMBERCANDIDATES, NUMBERVOTERS;
+	int NUMBERCANDIDATES, NUMBERVOTERS, NUMBERTRUSTEES;
 	string line;
 	ifstream configFile;
 	configFile.open("Config.txt");
