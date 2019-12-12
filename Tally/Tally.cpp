@@ -25,6 +25,7 @@ int main()
 	cout << "Tally App" << endl;
 	
 	int NUMBERCANDIDATES, NUMBERVOTERS;
+	string line;
 	ifstream configFile;
 	configFile.open("Config.txt");
 	if(getline(configFile, line))
@@ -79,7 +80,6 @@ int main()
 
 	// Grab number of votes to count
 	int numberVotes;
-	string line;
 	//get id do voto no ficheiro
 	ifstream IdFileIn("Voter/id.txt", ios::in);
 	if (IdFileIn.is_open())

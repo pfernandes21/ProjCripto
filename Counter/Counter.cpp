@@ -10,6 +10,7 @@ int main(){
 	cout << "Counter" << endl;
 
 	int NUMBERCANDIDATES, NUMBERVOTERS;
+	string line;
 	ifstream configFile;
 	configFile.open("Config.txt");
 	if(getline(configFile, line))
