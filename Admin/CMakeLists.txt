@@ -7,7 +7,7 @@ project(SEALExamples VERSION 3.4.4 LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)
 
-add_executable(admin Admin.cpp)
+add_executable(adminApp Admin.cpp)
 
 # Import OpenSSL
 find_package(OpenSSL REQUIRED)
@@ -19,4 +19,4 @@ find_package(SEAL 3.4.4 EXACT REQUIRED
 )
 
 # Link Microsoft SEAL && OpenSSL
-target_link_libraries(admin SEAL::seal OpenSSL::SSL OpenSSL::Crypto)
+target_link_libraries(adminApp SEAL::seal OpenSSL::SSL OpenSSL::Crypto)

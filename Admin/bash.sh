@@ -11,7 +11,7 @@ mkdir Certs;
 echo "*****Create CA Certificate*****";
 openssl genrsa -des3 -out CA/my-ca.key 2048;
 openssl req -new -x509 -days 3650 -key CA/my-ca.key -out CA/my-ca.crt;
-cp CA/my-ca.crt TallyApp/Certs/;
+cp CA/my-ca.crt ../TallyApp/Certs/;
 #
 #Create certificate for voters
 for (( i=1; i<=${1}; i++ ))
