@@ -9,6 +9,36 @@ using namespace seal;
 int main(){
 	cout << "Counter" << endl;
 
+	int NUMBERCANDIDATES, NUMBERVOTERS;
+	ifstream configFile;
+	configFile.open("Config.txt");
+	if(getline(configFile, line))
+	{
+		NUMBERCANDIDATES = stoi(line);
+	}
+	else
+	{
+		return 0;
+	}
+
+	if(getline(configFile, line))
+	{
+		NUMBERVOTERS = stoi(line);
+	}
+	else
+	{
+		return 0;
+	}
+
+	if(getline(configFile, line))
+	{
+		NUMBERTRUSTEES = stoi(line);
+	}
+	else
+	{
+		return 0;
+	}
+
 	//Define context parameters
 	EncryptionParameters parms(scheme_type::BFV);
 	size_t poly_modulus_degree = 4096;
@@ -44,7 +74,7 @@ int main(){
 	//opening each trustee document
 	for(int i=0; i<NUMBERTRUSTEES; i++)
 	{
-		sprintf(shareName,"trustee%i/share%i.txt", i,i);
+		sprintf(shareName,"Trustees/Trustee%i/share%i.txt", i,i);
 		trusteeShare.open(shareName);
 		getline (trusteeShare, myText);
 		allShares << myText << endl;
@@ -53,14 +83,13 @@ int main(){
 	allShares.close();
 
 	//Take the first 3 shares and combine them
-	sprintf(command,"head -n 3 allShares.txt | secret-share-combine > password.txt");
+	sprintf(command,"head -n %i allShares.txt | secret-share-combine > password.txt", NUMBERTRUSTEES);
 	system(command);
 	
-	sprintf(command,"openssl bf -d -in encriptedPrivateKey.txt -out decriptedPrivateKey.txt -pass file:password.txt");
-	system(command);
+	system("openssl bf -d -in encriptedPrivateKey.txt -out decriptedPrivateKey.txt -pass file:password.txt");
 
-	sprintf(command,"rm password.txt");
-	system(command);
+	system("rm password.txt");
+	system("rm allShares.txt");
 
 	//Get the private Key
 	ifstream privateKeyFile;

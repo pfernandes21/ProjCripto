@@ -1,6 +1,8 @@
 #!/bin/bash
 cd Admin/;
 #
+#Initialize config file
+echo "${2}\n${1}\n${3}" > 'Config.txt';
 #Copy Election public key to Tally
 cp ElectionKeys/publicKey.txt Voter;
 cp ElectionKeys/publicKey.txt Tally;
@@ -38,6 +40,8 @@ mv *.csr Certs;
 mv *.crt Certs;
 #
 cd ../Voter;
+#Reset vote count
+echo "0" > 'id.txt';
 #Create Voters Directories
 for (( i=1; i<=${1}; i++ ))
 do
@@ -63,13 +67,16 @@ done
 #Encrypte private key with password
 echo "Insert Private Key Password:";
 read pass;
-openssl enc -aes-128-cbc -md md5 -e -in ElectionKeys/privateKey.txt -out ElectionKeys/encriptedPrivateKey.txt -k $pass -p;
+echo ${pass} > 'password.txt';
+openssl bf -e -in privateKey.txt -out encriptedPrivateKey.txt -pass file:password.txt
+rm password.txt;
 #
 #Create password shares
 source ~/.profile;
 source ~/.cargo/env;
-# Make 4 shares with recombination threshold 3
-echo "Tyler Durden isn't real." | secret-share-split -n 4 -t 3 > shares.txt;
+# Make NTrustees shares with recombination the same threshold
+echo "Tyler Durden isn't real." | secret-share-split -n ${3} -t ${3} > shares.txt;
+rm shares.txt;
 #
 cd ..;
 rm -r Trustees;

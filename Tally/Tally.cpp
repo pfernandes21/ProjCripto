@@ -23,6 +23,27 @@ bool hasEnding (std::string const &fullString, std::string const &ending)
 int main()
 {
 	cout << "Tally App" << endl;
+	
+	int NUMBERCANDIDATES, NUMBERVOTERS;
+	ifstream configFile;
+	configFile.open("Config.txt");
+	if(getline(configFile, line))
+	{
+		NUMBERCANDIDATES = stoi(line);
+	}
+	else
+	{
+		return 0;
+	}
+
+	if(getline(configFile, line))
+	{
+		NUMBERVOTERS = stoi(line);
+	}
+	else
+	{
+		return 0;
+	}
 
 	//SEAL Define context parameters
 	EncryptionParameters parms(scheme_type::BFV);
@@ -37,13 +58,13 @@ int main()
 	SecretKey secret_key = keygen.secret_key();
 	Evaluator evaluator(context);
 	IntegerEncoder encoder(context);
+
 	//Load key and Weights
 	ifstream electionPublicKeyFile;
 	electionPublicKeyFile.open("Tally/publicKey.txt");
 	cout << "Load public key" << endl;
 	public_key.load(context, electionPublicKeyFile);
 	Encryptor encryptor(context, public_key);
-
 	electionPublicKeyFile.close();
 
 	//Command for command line

@@ -1,9 +1,5 @@
 #define COMMANDLENGTH 500
 
-#define NUMBERCANDIDATES 5
-#define NUMBERVOTERS 2
-#define NUMBERTRUSTEES 5
-
 #pragma once
 
 #include <cstddef>

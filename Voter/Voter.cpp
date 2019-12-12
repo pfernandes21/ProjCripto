@@ -13,6 +13,27 @@ int main()
 {	
 	cout << "Voter App" << endl;
 
+	int NUMBERCANDIDATES, NUMBERVOTERS;
+	ifstream configFile;
+	configFile.open("Config.txt");
+	if(getline(configFile, line))
+	{
+		NUMBERCANDIDATES = stoi(line);
+	}
+	else
+	{
+		return 0;
+	}
+
+	if(getline(configFile, line))
+	{
+		NUMBERVOTERS = stoi(line);
+	}
+	else
+	{
+		return 0;
+	}
+
 	//SEAL Define context parameters
 	EncryptionParameters parms(scheme_type::BFV);
 	size_t poly_modulus_degree = 4096;
@@ -108,6 +129,7 @@ int main()
 
 	int vote;
 	int candidate = 1;
+	int *candidates = new int[NUMBERCANDIDATES];
 	ofstream tempSignFile("signatureTemp.txt");
 
 	while (candidate >= 0)
@@ -124,8 +146,61 @@ int main()
 		cout << "Insira o número de votos:" << endl;
 		cin >> vote;
 		
+		candidates[candidate] = 1;
+
 		//ficheiro de voto por candidato
 		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(candidate) + ".txt";
+
+		//check if file already exists (trying to vote twice on the same candidate)
+		ifstream fcheck(filename);
+		bool newCandidate = true;
+		if(fcheck.good())
+		{
+			cout << endl << "You already voted on this candidate"<< endl;
+			newCandidate =false;
+		} 
+		else 
+		{
+			cout << endl << "Voting in a new candidate"<< endl;
+			newCandidate = true;
+		}
+		fcheck.close();
+		
+		ofstream candidateVoteFile(filename);
+		Plaintext voteValue;
+		Ciphertext encryptedVote;
+
+		if (candidateVoteFile.is_open())
+		{	
+			//encrypt and store vote
+			voteValue = encoder.encode(vote);	
+			encryptor.encrypt(voteValue, encryptedVote);
+			encryptedVote.save(candidateVoteFile);
+			encryptedVote.save(tempSignFile);
+			candidateVoteFile.close();
+		}
+
+		if(newCandidate)
+		{
+			votesFile << '"' << filename << '"' << " ";	
+			sprintf(command, "mv Voter/%s Ballot/", filename.c_str());
+			system(command);
+		}
+	}
+
+	for(int i = 0; i < NUMBERCANDIDATES; i++)
+	{
+		if(candidates[i] == 1)
+		{
+			continue;
+		}
+		else
+		{
+			vote = 0;
+		}
+		
+		//ficheiro de voto por candidato
+		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(i) + ".txt";
 
 		//check if file already exists (trying to vote twice on the same candidate)
 		ifstream fcheck(filename);

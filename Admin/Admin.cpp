@@ -39,7 +39,7 @@ void createKeys()
 	publicKeyFile.close();
 }
 
-void createWeights()
+void createWeights(int NUMBERVOTERS)
 {
 	cout << "Create Weights" << endl;
 
@@ -99,13 +99,27 @@ void createWeights()
 
 }
 
-int main()
+int main(int argc, char *argv)
 {
+	if(argc != 4)
+	{
+		printf("Insert all parameters (NCandidates, NVoters, NTrustees");
+		return 0;
+	}
+
+	int n_candidates = stoi(argv[1]), n_voters = stoi(argv[2]), n_trustees = stoi(argv[3]);
+
+	if(!(n_candidates > 0 && n_voters > 0 && n_trustees > 0))
+	{
+		printf("Insert correct parameters");
+		return 0;
+	}
+
 	createKeys();
-	createWeights();
+	createWeights(n_voters);
 
 	char command[100];
-	sprintf(command, "./Admin/bash.sh %i", NUMBERVOTERS);
+	sprintf(command, "./Admin/bash.sh %i %i %i", n_voters, n_candidates, n_trustees);
 	system(command);			
 
 	return 0;
