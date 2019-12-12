@@ -71,14 +71,13 @@ read pass;
 echo ${pass} > 'password.txt';
 openssl bf -e -in privateKey.txt -out encriptedPrivateKey.txt -pass file:password.txt
 rm password.txt;
-cd ../;
+cd ..;
 #
 #Create password shares
 source ~/.profile;
 source ~/.cargo/env;
 # Make NTrustees shares with recombination the same threshold
 echo "Tyler Durden isn't real." | secret-share-split -n ${3} -t ${3} > shares.txt;
-rm shares.txt;
 #
 cd ..;
 rm -r Trustees;
@@ -93,3 +92,4 @@ do
     echo ${line} >> Trustee${x}/share${x}.txt;
     ((x=x+1));
 done < ../Admin/shares.txt
+rm shares.txt;
