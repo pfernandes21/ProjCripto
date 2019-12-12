@@ -201,22 +201,6 @@ int main()
 		
 		//ficheiro de voto por candidato
 		filename = "Voter/" + to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(i) + ".txt";
-
-		//check if file already exists (trying to vote twice on the same candidate)
-		ifstream fcheck(filename);
-		bool newCandidate = true;
-		if(fcheck.good())
-		{
-			cout << endl << "You already voted on this candidate"<< endl;
-			newCandidate =false;
-		} 
-		else 
-		{
-			cout << endl << "Voting in a new candidate"<< endl;
-			newCandidate = true;
-		}
-		fcheck.close();
-		
 		ofstream candidateVoteFile(filename);
 		Plaintext voteValue;
 		Ciphertext encryptedVote;
@@ -231,12 +215,9 @@ int main()
 			candidateVoteFile.close();
 		}
 
-		if(newCandidate)
-		{
-			votesFile << '"' << filename << '"' << " ";	
-			sprintf(command, "mv %s Ballot/", filename.c_str());
-			system(command);
-		}
+		votesFile << '"' << filename << '"' << " ";	
+		sprintf(command, "mv %s Ballot/", filename.c_str());
+		system(command);
 	}
 	
 	//add Timestamp to signature file
