@@ -218,6 +218,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
 							 std::istreambuf_iterator<char>());
 
+	getchar();
 	char *signature = signMessage(myprivateKey, dataTempFile);
 	votesFile << ' ' << signature;
 	votesFile.close();
