@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/admin.dir/Admin.cpp.o  -o admin  /usr/local/lib/libseal-3.4.a -lOpenSSL::SSL -lOpenSSL::Crypto -pthread /usr/lib/x86_64-linux-gnu/libz.so 

@@ -1,4 +1,4 @@
-#include "../resources.h"
+#include "resources.h"
 
 #include <iostream>
 #include <fstream>
@@ -29,12 +29,12 @@ void createKeys()
 
 	ofstream privateKeyFile;
 	ofstream publicKeyFile;
-  	
-	privateKeyFile.open ("Admin/ElectionKeys/privateKey.txt");
-	publicKeyFile.open ("Admin/ElectionKeys/publicKey.txt");  
+
+	privateKeyFile.open("Admin/ElectionKeys/privateKey.txt");
+	publicKeyFile.open("Admin/ElectionKeys/publicKey.txt");
 	secret_key.save(privateKeyFile);
 	public_key.save(publicKeyFile);
-	
+
 	privateKeyFile.close();
 	publicKeyFile.close();
 }
@@ -56,7 +56,7 @@ void createWeights(int NUMBERVOTERS)
 	KeyGenerator keygen(context);
 	PublicKey public_key = keygen.public_key();
 	SecretKey secret_key = keygen.secret_key();
-    Evaluator evaluator(context);
+	Evaluator evaluator(context);
 
 	IntegerEncoder encoder(context);
 
@@ -69,7 +69,7 @@ void createWeights(int NUMBERVOTERS)
 	cout << "Load public key" << endl;
 	public_key.load(context, publicKeyFile);
 	secret_key.load(context, privateKeyFile);
-    Decryptor decryptor(context, secret_key);
+	Decryptor decryptor(context, secret_key);
 	Encryptor encryptor(context, public_key);
 
 	Plaintext weight;
@@ -80,50 +80,33 @@ void createWeights(int NUMBERVOTERS)
 
 	srand(time(NULL));
 	int randvalue;
-	for (int i=0; i<NUMBERVOTERS; i++){
+	for (int i = 0; i < NUMBERVOTERS; i++)
+	{
 		randvalue = rand() % (5 - 1 + 1) + 1;
-		weight=encoder.encode(randvalue);	
+		weight = encoder.encode(randvalue);
 		cout << "valor: " << randvalue << endl;
-		sprintf(filename, "Admin/encryptedWeight_%i",i);
+		sprintf(filename, "Admin/encryptedWeight_%i", i);
 		myfile.open(filename);
 		encryptor.encrypt(weight, encryptedWeight);
 		encryptedWeight.save(myfile);
 		myfile.close();
 		//Move weight to Tally
 		sprintf(command, "mv %s Tally/", filename);
-		system(command);			
+		system(command);
 	}
 
 	publicKeyFile.close();
 	privateKeyFile.close();
-
 }
 
-int main(int argc, char *argv[])
+void admin(int n_candidates, int n_voters, int n_trustees)
 {
-	if(argc != 4)
-	{
-		printf("Insert all parameters (NCandidates, NVoters, NTrustees");
-		return 0;
-	}
-
-	int n_candidates = 0, n_voters = 0, n_trustees = 0;
-	n_candidates = stoi(argv[1]);
-	n_voters = stoi(argv[2]);
-	n_trustees = stoi(argv[3]);
-
-	if(!(n_candidates > 0 && n_voters > 0 && n_trustees > 0))
-	{
-		printf("Insert correct parameters");
-		return 0;
-	}
-
 	createKeys();
 	createWeights(n_voters);
 
 	char command[100];
-	sprintf(command, "./Admin/bash.sh %i %i %i", n_voters, n_candidates, n_trustees);
-	system(command);			
+	sprintf(command, "./bash.sh %i %i %i", n_voters, n_candidates, n_trustees);
+	system(command);
 
-	return 0;
+	return;
 }

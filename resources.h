@@ -1,4 +1,5 @@
-#define COMMANDLENGTH 500
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
 
 #pragma once
 
@@ -18,6 +19,54 @@
 #include <numeric>
 #include "seal/seal.h"
 
+
+
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <ctime>
+
+#include <openssl/conf.h>
+#include <openssl/evp.h>
+#include <openssl/err.h>
+
+#include <openssl/aes.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+#include <openssl/ssl.h>
+#include <openssl/bio.h>
+#include <assert.h>
+
+void admin(int, int, int);
+
+void voter(int, int, int);
+
+void tally(int, int, int);
+
+void counter(int, int, int);
+
+
+RSA* createPrivateRSA(std::string);
+
+RSA* createPublicRSA(std::string);
+
+bool RSASign( RSA* , const unsigned char*,size_t ,unsigned char** , size_t*);
+
+bool RSAVerifySignature( RSA* ,unsigned char* , size_t , const char* ,size_t ,bool*);
+
+void Base64Encode( const unsigned char*,size_t ,char**);
+
+size_t calcDecodeLength(const char*) ;
+
+void Base64Decode(const char* , unsigned char**, size_t* );
+
+char* signMessage(std::string , std::string );
+
+bool verifySignature(std::string , std::string, char* );
+
+
+
+//-----------------------------------------------------------------------------
 
 /*
 Helper function: Prints the name of the example in a fancy banner.
@@ -70,7 +119,7 @@ inline void print_parameters(std::shared_ptr<seal::SEALContext> context)
     std::cout << "| Encryption parameters :" << std::endl;
     std::cout << "|   scheme: " << scheme_name << std::endl;
     std::cout << "|   poly_modulus_degree: " <<
-    context_data.parms().poly_modulus_degree() << std::endl;
+        context_data.parms().poly_modulus_degree() << std::endl;
 
     /*
     Print the size of the true (product) coefficient modulus.
@@ -92,7 +141,7 @@ inline void print_parameters(std::shared_ptr<seal::SEALContext> context)
     if (context_data.parms().scheme() == seal::scheme_type::BFV)
     {
         std::cout << "|   plain_modulus: " << context_data.
-        parms().plain_modulus().value() << std::endl;
+            parms().plain_modulus().value() << std::endl;
     }
 
     std::cout << "\\" << std::endl;
@@ -211,6 +260,9 @@ inline void print_matrix(std::vector<T> matrix, std::size_t row_size)
     std::cout << std::endl;
 };
 
+/*
+Helper function: Print line number.
+*/
 inline void print_line(int line_number)
 {
     std::cout << "Line " << std::setw(3) << line_number << " --> ";

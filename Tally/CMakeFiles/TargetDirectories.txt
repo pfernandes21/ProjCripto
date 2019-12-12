@@ -1,3 +1,0 @@
-/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/tally.dir
-/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/edit_cache.dir

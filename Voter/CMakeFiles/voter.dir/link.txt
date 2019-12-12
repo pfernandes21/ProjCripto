@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/voter.dir/Voter.cpp.o  -o voter  /usr/local/lib/libseal-3.4.a -lOpenSSL:SSL /usr/lib/x86_64-linux-gnu/libcrypto.so -pthread /usr/lib/x86_64-linux-gnu/libz.so 
