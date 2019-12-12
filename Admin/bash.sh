@@ -1,12 +1,13 @@
 #!/bin/bash
-cd Admin/;
 #
 #Initialize config file
 echo "${2}\n${1}\n${3}" > 'Config.txt';
+cd Admin/;
+#
 #Copy Election public key to Tally
-cp ElectionKeys/publicKey.txt Voter;
-cp ElectionKeys/publicKey.txt Tally;
-cp ElectionKeys/publicKey.txt Counter;
+cp ElectionKeys/publicKey.txt ../Voter/;
+cp ElectionKeys/publicKey.txt ../Tally/;
+cp ElectionKeys/publicKey.txt ../Counter/;
 #Create Directories
 rm -r CA;
 mkdir CA;
