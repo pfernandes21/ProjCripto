@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.12)
 
 project(SEALExamples VERSION 3.4.4 LANGUAGES CXX)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)
 
 add_executable(admin Admin.cpp)
 

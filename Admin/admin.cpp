@@ -90,7 +90,7 @@ void createWeights()
 		encryptedWeight.save(myfile);
 		myfile.close();
 		//Move weight to Tally
-		sprintf(command, "mv Admin/%s TallyApp/", filename);
+		sprintf(command, "mv %s TallyApp/", filename);
 		system(command);			
 	}
 
