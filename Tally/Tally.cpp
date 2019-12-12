@@ -20,7 +20,7 @@ bool hasEnding (std::string const &fullString, std::string const &ending)
 	}
 }
 
-void tallyApp()
+int main()
 {
 	cout << "Tally App" << endl;
 
@@ -39,7 +39,7 @@ void tallyApp()
 	IntegerEncoder encoder(context);
 	//Load key and Weights
 	ifstream electionPublicKeyFile;
-	electionPublicKeyFile.open("Administrator/electionKeys/publicKey.txt");
+	electionPublicKeyFile.open("Tally/publicKey.txt");
 	cout << "Load public key" << endl;
 	public_key.load(context, electionPublicKeyFile);
 	Encryptor encryptor(context, public_key);
@@ -60,7 +60,7 @@ void tallyApp()
 	int numberVotes;
 	string line;
 	//get id do voto no ficheiro
-	ifstream IdFileIn("id.txt", ios::in);
+	ifstream IdFileIn("Voter/id.txt", ios::in);
 	if (IdFileIn.is_open())
 	{
 		while (getline(IdFileIn, line))
@@ -71,7 +71,7 @@ void tallyApp()
 	}
 	else
 	{
-		return;
+		return 0;
 	}
 
 	cout << "Number of votes in the Ballot: " << numberVotes << endl;
@@ -96,7 +96,7 @@ void tallyApp()
 	ifstream voterWeightFile;
 	for (int n = 0; n < NUMBERVOTERS; n++) 
 	{
-		voterWeightFileName = "TallyApp/encryptedWeight_" + to_string(n);
+		voterWeightFileName = "Tally/encryptedWeight_" + to_string(n);
 		//Load encrypted weight
 		voterWeightFile.open(voterWeightFileName);
 		voterWeights[n].load(context, voterWeightFile);
@@ -159,7 +159,7 @@ void tallyApp()
 			}
 		} while (ss);
 
-		voterKeyFileName = "client" + voterID + "/clientPublicKey" + voterID + ".key";
+		voterKeyFileName = "Voter/Voter" + voterID + "/clientPublicKey" + voterID + ".key";
 
 		//Fetch  public key of voter in order to check signature
 		std::ifstream publicKeyFile(voterKeyFileName);
@@ -210,7 +210,7 @@ void tallyApp()
 			else
 			{
 				cout << "Last votes not opened \n";
-				return;
+				return 0;
 			}
 		} 
 		else 
@@ -332,5 +332,5 @@ void tallyApp()
 	/* Remove error strings */
 	ERR_free_strings();
 
-	return;
+	return 0;
 }

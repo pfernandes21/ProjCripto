@@ -1,6 +1,10 @@
 #!/bin/bash
 cd Admin/;
 #
+#Copy Election public key to Tally
+cp ElectionKeys/publicKey.txt Voter;
+cp ElectionKeys/publicKey.txt Tally;
+cp ElectionKeys/publicKey.txt Counter;
 #Create Directories
 rm -r CA;
 mkdir CA;
@@ -12,7 +16,7 @@ mkdir Certs;
 echo "*****Create CA Certificate*****";
 openssl genrsa -des3 -out CA/my-ca.key 2048;
 openssl req -new -x509 -days 3650 -key CA/my-ca.key -out CA/my-ca.crt;
-cp CA/my-ca.crt ../TallyApp/Certs/;
+cp CA/my-ca.crt ../Tally/Certs/;
 #
 #Create certificate for voters
 for (( i=1; i<=${1}; i++ ))

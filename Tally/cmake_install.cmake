@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp
+# Install script for directory: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

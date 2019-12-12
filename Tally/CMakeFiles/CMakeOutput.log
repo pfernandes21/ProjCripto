@@ -10,27 +10,27 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/3.16.0/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/3.16.0/CompilerIdCXX/a.out"
 
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp
+Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp
 
 Run Build Command(s):/usr/bin/make cmTC_67adc/fast && /usr/bin/make -f CMakeFiles/cmTC_67adc.dir/build.make CMakeFiles/cmTC_67adc.dir/build
-make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_67adc.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_67adc.dir/testCXXCompiler.cxx.o -c "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp/testCXXCompiler.cxx"
+/usr/bin/c++     -o CMakeFiles/cmTC_67adc.dir/testCXXCompiler.cxx.o -c "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp/testCXXCompiler.cxx"
 Linking CXX executable cmTC_67adc
 /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_67adc.dir/link.txt --verbose=1
 /usr/bin/c++       CMakeFiles/cmTC_67adc.dir/testCXXCompiler.cxx.o  -o cmTC_67adc 
-make[1]: Leaving directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp'
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp
+Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp
 
 Run Build Command(s):/usr/bin/make cmTC_a324d/fast && /usr/bin/make -f CMakeFiles/cmTC_a324d.dir/build.make CMakeFiles/cmTC_a324d.dir/build
-make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_a324d.dir/CMakeCXXCompilerABI.cpp.o
 /usr/bin/c++    -v -o CMakeFiles/cmTC_a324d.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp
 Using built-in specs.
@@ -89,7 +89,7 @@ LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/..
 COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_a324d' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
  /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccbetag3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_a324d /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_a324d.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
 COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_a324d' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-make[1]: Leaving directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp'
 
 
 
@@ -118,10 +118,10 @@ Parsed CXX implicit include dir info from above output: rv=done
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp]
   ignore line: []
   ignore line: [Run Build Command(s):/usr/bin/make cmTC_a324d/fast && /usr/bin/make -f CMakeFiles/cmTC_a324d.dir/build.make CMakeFiles/cmTC_a324d.dir/build]
-  ignore line: [make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp']
+  ignore line: [make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp']
   ignore line: [Building CXX object CMakeFiles/cmTC_a324d.dir/CMakeCXXCompilerABI.cpp.o]
   ignore line: [/usr/bin/c++    -v -o CMakeFiles/cmTC_a324d.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp]
   ignore line: [Using built-in specs.]
@@ -238,16 +238,16 @@ Parsed CXX implicit link information from above output:
 
 
 Determining if the include file pthread.h exists passed with the following output:
-Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp
+Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp
 
 Run Build Command(s):/usr/bin/make cmTC_e843e/fast && /usr/bin/make -f CMakeFiles/cmTC_e843e.dir/build.make CMakeFiles/cmTC_e843e.dir/build
-make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_e843e.dir/CheckIncludeFile.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_e843e.dir/CheckIncludeFile.cxx.o -c "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp/CheckIncludeFile.cxx"
+/usr/bin/c++     -o CMakeFiles/cmTC_e843e.dir/CheckIncludeFile.cxx.o -c "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp/CheckIncludeFile.cxx"
 Linking CXX executable cmTC_e843e
 /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e843e.dir/link.txt --verbose=1
 /usr/bin/c++       CMakeFiles/cmTC_e843e.dir/CheckIncludeFile.cxx.o  -o cmTC_e843e 
-make[1]: Leaving directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp'
 
 
 

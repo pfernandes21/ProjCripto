@@ -5,9 +5,9 @@ cmake_minimum_required(VERSION 3.12)
 
 project(SEALExamples VERSION 3.4.4 LANGUAGES CXX)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)
 
-add_executable(voter Voter.cpp)
+add_executable(voterApp Voter.cpp)
 
 # Import OpenSSL
 find_package(OpenSSL REQUIRED)
@@ -19,4 +19,4 @@ find_package(SEAL 3.4.4 EXACT REQUIRED
 )
 
 # Link Microsoft SEAL && OpenSSL
-target_link_libraries(voter SEAL::seal OpenSSL:SSL OpenSSL::Crypto)
+target_link_libraries(voterApp SEAL::seal OpenSSL:SSL OpenSSL::Crypto)

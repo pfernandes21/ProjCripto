@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/Tally.cpp" "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/tally.dir/Tally.cpp.o"
+  "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/Tally.cpp" "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/tally.dir/Tally.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

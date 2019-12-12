@@ -6,7 +6,7 @@
 using namespace std;
 using namespace seal;
 
-void counter(){
+int main(){
 	cout << "Counter" << endl;
 
 	//Define context parameters
@@ -26,13 +26,9 @@ void counter(){
 
 	//Load key and Weights
 	ifstream publicKeyFile;
-	ifstream privateKeyFile;
-	publicKeyFile.open("Administrator/electionKeys/publicKey.txt");
-	privateKeyFile.open("Administrator/electionKeys/privateKey.txt");
+	publicKeyFile.open("Counter/publicKey.txt");
 	cout << "Load public key" << endl;
 	public_key.load(context, publicKeyFile);
-	secret_key.load(context, privateKeyFile);
-    Decryptor decryptor(context, secret_key);
 	Encryptor encryptor(context, public_key);
 
 	char shareName[100];
@@ -45,7 +41,6 @@ void counter(){
 	ofstream allShares("allShares.txt");
 	ifstream trusteeShare;
 	
-
 	//opening each trustee document
 	for(int i=0; i<NUMBERTRUSTEES; i++)
 	{
@@ -55,20 +50,72 @@ void counter(){
 		allShares << myText << endl;
 		trusteeShare.close();
 	}
-
 	allShares.close();
 
 	//Take the first 3 shares and combine them
 	sprintf(command,"head -n 3 allShares.txt | secret-share-combine > password.txt");
 	system(command);
-
-	string encryptionPass;
-	ifstream passwordFile("password.txt");
-	getline(passwordFile, encryptionPass);
-
-	sprintf(command,"openssl bf -d -in encriptedPrivateKey.txt -out decriptedPrivateKey.txt -pass pass:%s", encryptionPass);
-	system(command);
 	
+	sprintf(command,"openssl bf -d -in encriptedPrivateKey.txt -out decriptedPrivateKey.txt -pass file:password.txt");
+	system(command);
+
+	sprintf(command,"rm password.txt");
+	system(command);
+
+	//Get the private Key
+	ifstream privateKeyFile;
+	privateKeyFile.open("decriptedPrivateKey.txt");
+	secret_key.load(context, privateKeyFile);
+    Decryptor decryptor(context, secret_key);
+	
+	//Fetch the accumulator and results:
+	int controlValue = NUMBERVOTERS * NUMBERCANDIDATES;
+	ifstream accumulatorFile;
+	ifstream resultFile;
+	Ciphertext accumulatorEncrypted;
+	Plaintext accumulatorPlain;
+	Ciphertext resultEncrypted;
+	Plaintext resultPlain;
+	int accumulatorValue, resultValue, winnerScore=0;
+	int winner = -1;
+	bool tie = false;
+	string resultFileName;
+
+	accumulatorFile.open("accumulator.txt");
+	accumulatorEncrypted.load(context, accumulatorFile);
+	decryptor.decrypt(accumulatorEncrypted, accumulatorPlain);
+	accumulatorValue = encoder.decode_int32(accumulatorPlain);
+		
+	if(accumulatorValue != controlValue && false)
+	{
+		cout << "Election Compromised, abort election \n";
+	}
+	else
+	{
+		for(int i=0; i<NUMBERCANDIDATES; i++)
+		{
+			resultFileName = "resultCandidate_" + to_string(i) + ".txt";
+			resultFile.open(resultFileName);
+			resultEncrypted.load(context, resultFile);
+			decryptor.decrypt(resultEncrypted, resultPlain);
+			resultValue = encoder.decode_int32(resultPlain);
+			if(resultValue > winnerScore)
+			{
+				winnerScore = resultValue;
+				winner = i;
+				tie = false;
+			}
+			else if(resultValue == winnerScore)
+			{
+				tie = true;
+			}
+			resultFile.close();
+		}
+		cout << "Winner is Candidate_" << to_string(winner) << " With : " << to_string(winnerScore) << endl;
+	}
+		
 	publicKeyFile.close();
 	privateKeyFile.close();
+
+	return 0;
 }

@@ -1,10 +1,10 @@
 Performing C++ SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp
+Change Dir: /mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp
 
 Run Build Command(s):/usr/bin/make cmTC_1aac5/fast && /usr/bin/make -f CMakeFiles/cmTC_1aac5.dir/build.make CMakeFiles/cmTC_1aac5.dir/build
-make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_1aac5.dir/src.cxx.o
-/usr/bin/c++    -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_1aac5.dir/src.cxx.o -c "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp/src.cxx"
+/usr/bin/c++    -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_1aac5.dir/src.cxx.o -c "/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp/src.cxx"
 Linking CXX executable cmTC_1aac5
 /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1aac5.dir/link.txt --verbose=1
 /usr/bin/c++   -DCMAKE_HAVE_LIBC_PTHREAD    CMakeFiles/cmTC_1aac5.dir/src.cxx.o  -o cmTC_1aac5 
@@ -16,7 +16,7 @@ src.cxx:(.text+0x6f): undefined reference to `pthread_atfork'
 collect2: error: ld returned 1 exit status
 CMakeFiles/cmTC_1aac5.dir/build.make:86: recipe for target 'cmTC_1aac5' failed
 make[1]: *** [cmTC_1aac5] Error 1
-make[1]: Leaving directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/TallyApp/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/c/Users/pedro/OneDrive/Desktop/IST/5 Ano - 1 Semestre/Cripto/CriptoElection/Tally/CMakeFiles/CMakeTmp'
 Makefile:121: recipe for target 'cmTC_1aac5/fast' failed
 make: *** [cmTC_1aac5/fast] Error 2
 
