@@ -14,6 +14,7 @@ int main()
 	cout << "Voter App" << endl;
 
 	int NUMBERCANDIDATES, NUMBERVOTERS;
+	string line;
 	ifstream configFile;
 	configFile.open("Config.txt");
 	if(getline(configFile, line))
@@ -66,8 +67,6 @@ int main()
 
 	//id do votante e id do voto
 	int myId = 0, myVote = 0;
-
-	string line;
 
 	cout << "Insira o seu numero de votante:" << endl;
 	cin >> myId;
