@@ -48,7 +48,7 @@ std::string publicKey = "-----BEGIN PUBLIC KEY-----\n"
 						"KUUh6t37xhTKkb1PWQIDAQAB\n"
 						"-----END PUBLIC KEY-----\n";
 
-void voter(int n_candidates, int n_voters, int n_trustees)
+void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 {
 	cout << "Voter App" << endl;
 

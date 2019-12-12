@@ -19,6 +19,8 @@
 using namespace std;
 using namespace seal;
 
+bool compareTimestamps(std::string, std::string);
+
 bool hasEnding(std::string const &fullString, std::string const &ending)
 {
 	if (fullString.length() >= ending.length())
@@ -31,7 +33,7 @@ bool hasEnding(std::string const &fullString, std::string const &ending)
 	}
 }
 
-void tally(int n_candidates, int n_voters, int n_trustees)
+void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 {
 	cout << "Tally App" << endl;
 
