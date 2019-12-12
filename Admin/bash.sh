@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #Initialize config file
-echo "${2}\n${1}\n${3}" > 'Config.txt';
+printf "${2}'\n'${1}'\n'${3}" > 'Config.txt';
 cd Admin/;
 #
 #Copy Election public key to Tally
