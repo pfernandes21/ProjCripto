@@ -194,7 +194,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		tempFile << timestamp;
 
 		voterKeyFileName = "Voter/Voter" + voterID + "/clientPublicKey" + voterID + ".key";
-
+		cout << "chave " << voterKeyFileName << endl;
 		//Fetch  public key of voter in order to check signature
 		std::ifstream publicKeyFile(voterKeyFileName);
 		std::string mypublicKey((std::istreambuf_iterator<char>(publicKeyFile)), std::istreambuf_iterator<char>());
