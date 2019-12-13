@@ -295,10 +295,10 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				// number of candidates)
 				Ciphertext encryptedVote;
 				encryptedVote.load(context, voteEncryptedFile);
-				cout << "hey" << decryptor.invariant_noise_budget(voteEncryptedFile) << endl;
+				cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
 				evaluator.add_inplace(accumulator, encryptedVote);
 				//multiply weight by encrypted vote and add to encrypted file
-				cout << "hey" << decryptor.invariant_noise_budget(voteEncryptedFile) << endl;
+				cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
 				evaluator.multiply(voterWeights[k], encryptedVote, multiply_result);
 				evaluator.add_inplace(voteResults[stoi(word)], multiply_result);
 				voteEncryptedFile.close();
