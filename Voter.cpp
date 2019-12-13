@@ -151,22 +151,19 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		}
 		fcheck.close();
 
-		ofstream candidateVoteFile(filename);
-		Plaintext voteValue;
-		Ciphertext encryptedVote;
-
 		if (candidateVoteFile.is_open() && newCandidate)
 		{
+			ofstream candidateVoteFile(filename);
+			Plaintext voteValue;
+			Ciphertext encryptedVote;
+
 			//encrypt and store vote
 			voteValue = encoder.encode(vote);
 			encryptor.encrypt(voteValue, encryptedVote);
 			encryptedVote.save(candidateVoteFile);
 			encryptedVote.save(tempSignFile);
 			candidateVoteFile.close();
-		}
 
-		if (newCandidate)
-		{
 			if(candidate < NUMBERCANDIDATES) candidates_voted[candidate] = 1;
 			votesFile << '"' << filename << '"' << " ";
 			sprintf(command, "mv %s Ballot/", filename.c_str());
