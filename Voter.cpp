@@ -170,10 +170,10 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			//encrypt and store vote
 			voteValue = encoder.encode(vote);
 			encryptor.encrypt(voteValue, encryptedVote);
-			cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
 			encryptedVote.save(candidateVoteFile);
 			encryptedVote.save(tempSignFile);
 			candidateVoteFile.close();
+			cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
 		}
 
 		if (newCandidate)
