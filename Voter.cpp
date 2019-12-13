@@ -41,8 +41,10 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	//Load key and Weights
 	ifstream electionPublicKeyFile;
 	electionPublicKeyFile.open("Voter/publicKey.txt");
+	privateKeyFile.open("Admin/ElectionKeys/privateKey.txt");
 	cout << "Load public key" << endl;
 	public_key.load(context, electionPublicKeyFile);
+	secret_key.load(context, privateKeyFile);
 	Encryptor encryptor(context, public_key);
 	Decryptor decryptor(context, secret_key);
 	electionPublicKeyFile.close();
@@ -173,7 +175,6 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			encryptedVote.save(candidateVoteFile);
 			encryptedVote.save(tempSignFile);
 			candidateVoteFile.close();
-			cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
 		}
 
 		if (newCandidate)
