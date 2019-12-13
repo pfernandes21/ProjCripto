@@ -262,10 +262,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	//Encrypt plain text
 	Ciphertext accumulator;
 	encryptor.encrypt(accumulator_plain, accumulator);
-	ifstream privateKeyFile1;
-	privateKeyFile1.open("Admin/ElectionKeys/privateKey.txt");
-	secret_key.load(context, privateKeyFile1);
-	Decryptor decryptor(context, secret_key);
 	
 	for (int k = 0; k < NUMBERVOTERS; k++)
 	{
