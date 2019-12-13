@@ -19,34 +19,6 @@
 using namespace std;
 using namespace seal;
 
-//private key comes from openssl rsa -in client-cert0.key -check (need password)
-//or better (cleans the file) comes from openssl rsa -in client-cert0.key -out newPrivateKey.key
-//(need password)
-
-std::string privateKey = "-----BEGIN RSA PRIVATE KEY-----\n"
-						 "MIICXQIBAAKBgQCmg00nu42DV1OMf8R+nb4z3pXDlLRf6/ZeOFu1mrRRmWMsNpHq\n"
-						 "fl+OSUAFnJ8pDU5D229CxZzEmBmQEj6Cjs/9Rt6BM2f3Q5awCdUCDkogS/hPFB9u\n"
-						 "CvgQgTfuxg8s+RdVKHNDqjQGw509RvtofCAyC8AdKUUh6t37xhTKkb1PWQIDAQAB\n"
-						 "AoGAIDGctkTl3HIC3lRJqm1XO/IaJKFYqn8VuCvPV3Jc0LYGXaMDXUInuXviG/On\n"
-						 "Nimzax0/CrroT35U2u0cFuQDxFVyw2vOlp1rMbDO4WdBgVZA4zunx2l6rL3/iTYx\n"
-						 "7uUsDJPbDZPnsXn0m4hziP/PraxgRfUmgTSpnKcPUhXzuDECQQDcBVKc3uqceNvo\n"
-						 "3Tby8bv6GHcitxauAI0IHgbSNa7cp5GGSXvMCXLQxDk8JUfReLtcwLWRFDnbCvIw\n"
-						 "jV6u0rEdAkEAwb39lS531TRvK9idbHbyrerilE8gM7rBv0huRYelXVTrLIE7wbGm\n"
-						 "zkHc2JvfGVDccrYPDb8cz2DmnkcXFhiebQJAKrvZ7OAbH2MWC2eT+aHcCdpgoVyA\n"
-						 "SjGPMulqF8AXg4IEcNmq8tlO9J94Imd3SIczlPNVEKWmCxZYLff3UOtZPQJBALYQ\n"
-						 "p8PQdjY6XxqSJmXuZeIAMEr1DKrwHvB1zYKzlTfe/F3HWHOOUdXUWQiJeh9dOLzn\n"
-						 "z7+4UAel5TLqVYyjOAUCQQCNTH5B2kox64XkRc7X57gs8KqbiZ+yUU2dbPLZcq7i\n"
-						 "GkEmBHumFd3Nsv1oVadeE6FLHxSHLMoAD9c1v4YlKlZj\n"
-						 "-----END RSA PRIVATE KEY-----\n\0";
-
-//public key comes from openssl x509 -pubkey -noout -in client-cert0.crt
-
-std::string publicKey = "-----BEGIN PUBLIC KEY-----\n"
-						"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmg00nu42DV1OMf8R+nb4z3pXD\n"
-						"lLRf6/ZeOFu1mrRRmWMsNpHqfl+OSUAFnJ8pDU5D229CxZzEmBmQEj6Cjs/9Rt6B\n"
-						"M2f3Q5awCdUCDkogS/hPFB9uCvgQgTfuxg8s+RdVKHNDqjQGw509RvtofCAyC8Ad\n"
-						"KUUh6t37xhTKkb1PWQIDAQAB\n"
-						"-----END PUBLIC KEY-----\n";
 
 void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 {
@@ -123,19 +95,6 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			myVote = stoi(line);
 		}
 		IdFileIn.close();
-	}
-	else
-	{
-		return;
-	}
-
-	//update id do voto no ficheiro
-	myVote++;
-	ofstream IdFileOut("Voter/id.txt", ios::out);
-	if (IdFileOut.is_open())
-	{
-		IdFileOut << to_string(myVote) << endl;
-		IdFileOut.close();
 	}
 	else
 	{
@@ -233,6 +192,19 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 	tempSignFile.close();
 	sprintf(command, "mv %s Ballot/", filename.c_str());
+
+	//update id do voto no ficheiro
+	myVote++;
+	ofstream IdFileOut("Voter/id.txt", ios::out);
+	if (IdFileOut.is_open())
+	{
+		IdFileOut << to_string(myVote) << endl;
+		IdFileOut.close();
+	}
+	else
+	{
+		return;
+	}
 
 	/* Removes all digests and ciphers */
 	EVP_cleanup();
