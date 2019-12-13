@@ -188,11 +188,12 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	votesFile << ' ' << signature;
 	votesFile.close();
 
-	filename = "Voter/vote" + to_string(myVote) + ".txt";
-
 	tempSignFile.close();
-	sprintf(command, "mv %s Ballot/", filename.c_str());
 
+	filename = "Voter/vote" + to_string(myVote) + ".txt";
+	sprintf(command, "mv %s Ballot/", filename.c_str());
+	system(command);
+	
 	//update id do voto no ficheiro
 	myVote++;
 	ofstream IdFileOut("Voter/id.txt", ios::out);
