@@ -151,7 +151,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		}
 		fcheck.close();
 
-		if (candidateVoteFile.is_open() && newCandidate)
+		if (newCandidate)
 		{
 			ofstream candidateVoteFile(filename);
 			Plaintext voteValue;
