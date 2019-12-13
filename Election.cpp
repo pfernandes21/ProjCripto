@@ -31,10 +31,7 @@ int main(int argc, char *argv[])
   while (true)
   {
     cout << "+---------------------------------------------------------+" << endl;
-    cout << "| The following examples should be executed while reading |" << endl;
-    cout << "| comments in associated files in native/examples/.       |" << endl;
-    cout << "+---------------------------------------------------------+" << endl;
-    cout << "| Programms                  | Source Files               |" << endl;
+    cout << "| Role                       | Source Files               |" << endl;
     cout << "+----------------------------+----------------------------+" << endl;
     cout << "| 1. Admin                   | Admin.cpp                  |" << endl;
     cout << "| 2. Voter                   | Voter.cpp                  |" << endl;
