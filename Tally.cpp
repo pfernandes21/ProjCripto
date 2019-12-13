@@ -300,7 +300,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				//Load encrypted vote
 				voteEncryptedFile.open(word);
 				//Cut word down to obtain Id of candidate
-				word.erase(17);
+				word.erase(16);
 				word.erase(word.begin(), word.end() - 1);
 				cout << "word " << word << endl;
 				// that will have all the votes of that candidate ( do a vector of ciphetext w/size of
