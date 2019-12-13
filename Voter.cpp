@@ -5,17 +5,6 @@
 #include <fstream>
 #include <ctime>
 
-#include <openssl/conf.h>
-#include <openssl/evp.h>
-#include <openssl/err.h>
-
-#include <openssl/aes.h>
-#include <openssl/rsa.h>
-#include <openssl/pem.h>
-#include <openssl/ssl.h>
-#include <openssl/bio.h>
-#include <assert.h>
-
 using namespace std;
 using namespace seal;
 
@@ -42,12 +31,9 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	ifstream electionPublicKeyFile;
 	electionPublicKeyFile.open("Voter/publicKey.txt");
 	ifstream privateKeyFile1;
-	privateKeyFile1.open("Admin/ElectionKeys/privateKey.txt");
 	cout << "Load public key" << endl;
 	public_key.load(context, electionPublicKeyFile);
-	secret_key.load(context, privateKeyFile1);
 	Encryptor encryptor(context, public_key);
-	Decryptor decryptor(context, secret_key);
 	electionPublicKeyFile.close();
 
 	//timestamp
@@ -125,6 +111,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 	int vote;
 	int candidate = 1;
+	int candidates_voted[NUMBERCANDIDATES] = {0};
 	ofstream tempSignFile("signatureTemp.txt");
 	string timestamp = to_string(hour) + "," + to_string(minute) + "," + to_string(second);
 
@@ -168,7 +155,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		Plaintext voteValue;
 		Ciphertext encryptedVote;
 
-		if (candidateVoteFile.is_open())
+		if (candidateVoteFile.is_open() && newCandidate)
 		{
 			//encrypt and store vote
 			voteValue = encoder.encode(vote);
@@ -180,10 +167,38 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 		if (newCandidate)
 		{
+			if(candidate < NUMBERCANDIDATES) candidates_voted[candidate] = 1;
 			votesFile << '"' << filename << '"' << " ";
 			sprintf(command, "mv %s Ballot/", filename.c_str());
 			system(command);
 		}
+	}
+
+	for(i=0;i<NUMBERCANDIDATES;i++)
+	{
+		if(candidates_voted[i] == 0)
+		{
+			vote = 0;
+		}
+		else continue;
+
+		//ficheiro de voto por candidato
+		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(i) + ".txt";
+
+		ofstream candidateVoteFile(filename);
+		Plaintext voteValue;
+		Ciphertext encryptedVote;
+
+		//encrypt and store vote
+		voteValue = encoder.encode(vote);
+		encryptor.encrypt(voteValue, encryptedVote);
+		encryptedVote.save(candidateVoteFile);
+		encryptedVote.save(tempSignFile);
+		candidateVoteFile.close();
+
+		votesFile << '"' << filename << '"' << " ";
+		sprintf(command, "mv %s Ballot/", filename.c_str());
+		system(command);
 	}
 
 	//add Timestamp to signature file
@@ -194,13 +209,6 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
 							 std::istreambuf_iterator<char>());
 
-	/*unsigned char md[100];
-	if(!simpleSHA256((void*)dataTempFile.c_str(), dataTempFile.length(), md))
-	{
-		cout << "yayya mermao" << endl;
-		exit(0);
-	}
-	string mdTemp(reinterpret_cast<char*>(md));*/
 	char *signature = signMessage(myprivateKey, dataTempFile);
 	votesFile << ' ' << signature;
 	votesFile.close();
