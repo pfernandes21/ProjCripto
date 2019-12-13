@@ -49,7 +49,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	PublicKey public_key = keygen.public_key();
 	SecretKey secret_key = keygen.secret_key();
 	Evaluator evaluator(context);
-	Decryptor decryptor(context, secret_key);
 	IntegerEncoder encoder(context);
 
 	//Load key and Weights
@@ -254,7 +253,11 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	//Encrypt plain text
 	Ciphertext accumulator;
 	encryptor.encrypt(accumulator_plain, accumulator);
-
+	ifstream privateKeyFile1;
+	privateKeyFile1.open("Admin/ElectionKeys/privateKey.txt");
+	secret_key.load(context, privateKeyFile1);
+	Decryptor decryptor(context, secret_key);
+	
 	for (int k = 0; k < NUMBERVOTERS; k++)
 	{
 		lastVote = voters[k];
@@ -292,6 +295,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				// number of candidates)
 				Ciphertext encryptedVote;
 				encryptedVote.load(context, voteEncryptedFile);
+				cout << "hey" << decryptor.invariant_noise_budget(voterWeights[k]) << endl;
 				evaluator.add_inplace(accumulator, encryptedVote);
 				//multiply weight by encrypted vote and add to encrypted file
 				cout << "hey" << decryptor.invariant_noise_budget(voterWeights[k]) << endl;
