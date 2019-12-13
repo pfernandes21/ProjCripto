@@ -302,6 +302,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				//Cut word down to obtain Id of candidate
 				word.erase(17);
 				word.erase(word.begin(), word.end() - 1);
+				cout << "word " << word << endl;
 				// that will have all the votes of that candidate ( do a vector of ciphetext w/size of
 				// number of candidates)
 				Ciphertext encryptedVote;
@@ -317,7 +318,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				cout << "vote " << encoder.decode_int32(accumulatorPlain) << endl;
 
 				evaluator.multiply(encryptedVote, voterWeights[k], multiply_result);
-				evaluator.add_inplace(voteResults[0], multiply_result);
+				evaluator.add_inplace(voteResults[stoi(word)], multiply_result);
 				voteEncryptedFile.close();
 				continue;
 			}
