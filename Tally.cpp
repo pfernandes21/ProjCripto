@@ -128,7 +128,8 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	string timestamp;
 	for (int j = 0; j < numberVotes; j++)
 	{
-		voteFileName = "Ballot/vote" + to_string(j + 1) + ".txt";
+		voteFileName = "Ballot/vote" + to_string(j) + ".txt";
+
 		signature = "";
 		signatureCheck = false;
 		voterIDCheck = true;
