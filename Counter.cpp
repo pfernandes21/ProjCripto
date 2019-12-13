@@ -56,7 +56,7 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	sprintf(command, "head -n %i allShares.txt | secret-share-combine > password.txt", NUMBERTRUSTEES);
 	system(command);
 
-	sprintf(command, "openssl bf -d -in encriptedPrivateKey.txt -out decriptedPrivateKey.txt -pass file:password.txt");
+	sprintf(command, "openssl bf -d -in Admin/ElectionKeys/encriptedPrivateKey.txt -out decriptedPrivateKey.txt -pass file:password.txt");
 	system(command);
 
 	sprintf(command, "rm password.txt");
