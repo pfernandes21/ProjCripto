@@ -98,6 +98,7 @@ int main(int argc, char *argv[])
       break;
 
     case 0:
+      system("./exit.sh");
       return 0;
     }
   }
