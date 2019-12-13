@@ -104,6 +104,13 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	Ciphertext voteResults[NUMBERCANDIDATES];
 	Ciphertext voterWeights[NUMBERVOTERS];
 
+	/**/
+	ifstream privateKeyFile;
+	privateKeyFile.open("Admin/ElectionKeys/privateKey.txt");
+	secret_key.load(context, privateKeyFile);
+	Decryptor decryptor(context, secret_key);
+	/**/
+
 	//Fetch the voter Weights
 	string voterWeightFileName;
 	ifstream voterWeightFile;
