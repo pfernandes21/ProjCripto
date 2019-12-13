@@ -219,7 +219,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 							 std::istreambuf_iterator<char>());
 
 	unsigned char md[100];
-	if(!simpleSHA256(dataTempFile.c_str(), dataTempFile.length(), md))
+	if(!simpleSHA256((void*)dataTempFile.c_str(), dataTempFile.length(), md))
 	{
 		cout << "yayya mermao" << endl;
 		exit(0);
