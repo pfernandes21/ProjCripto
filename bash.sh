@@ -72,6 +72,7 @@ read pass;
 echo ${pass} > 'password.txt';
 openssl bf -e -in privateKey.txt -out encriptedPrivateKey.txt -pass file:password.txt
 rm password.txt;
+rm privateKey.txt;
 cd ..;
 #
 #Create password shares

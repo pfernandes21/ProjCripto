@@ -1,13 +1,7 @@
 #include "resources.h"
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <ctime>
-
 using namespace std;
 using namespace seal;
-
 
 void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 {
@@ -52,6 +46,12 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	cout << "Insira o seu numero de votante:" << endl;
 	cin >> myId;
 
+	if(myId < 0 || myId >= NUMBERVOTERS)
+	{
+		cout << "Invalid ID" << endl;
+		return;
+	}
+
 	/* Load the human readable error strings for libcrypto */
 	ERR_load_crypto_strings();
 
@@ -66,15 +66,14 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	std::ifstream publicKeyFile(filename);
 	std::string mypublicKey((std::istreambuf_iterator<char>(publicKeyFile)),
 							std::istreambuf_iterator<char>());
+	publicKeyFile.close();
 
-	cout << mypublicKey;
 	filename = "Voter/Voter" + to_string(myId) + "/clientPrivateKey" + to_string(myId) + ".key";
 
 	std::ifstream privateKeyFile(filename);
 	std::string myprivateKey((std::istreambuf_iterator<char>(privateKeyFile)),
 							 std::istreambuf_iterator<char>());
-
-	cout << myprivateKey;
+	privateKeyFile.close();
 
 	//get id do voto no ficheiro
 	ifstream IdFileIn("Voter/id.txt", ios::in);
@@ -130,6 +129,12 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 		cout << "Insira o número de votos:" << endl;
 		cin >> vote;
+
+		if(vote < 0)
+		{
+			cout << "Vote must be bigger than 0" << endl;
+			continue;
+		}
 
 		//ficheiro de voto por candidato
 		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(candidate) + ".txt";
@@ -205,6 +210,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	std::ifstream tempFile("signatureTemp.txt");
 	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
 							 std::istreambuf_iterator<char>());
+	tempFile.close();
 
 	char *signature = signMessage(myprivateKey, dataTempFile);
 	votesFile << ' ' << signature;

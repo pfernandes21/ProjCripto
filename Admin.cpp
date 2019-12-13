@@ -1,6 +1,5 @@
 #include "resources.h"
 
-
 using namespace std;
 using namespace seal;
 

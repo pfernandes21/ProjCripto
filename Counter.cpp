@@ -1,8 +1,5 @@
 #include "resources.h"
 
-#include <iostream>
-#include <fstream>
-
 using namespace std;
 using namespace seal;
 
@@ -20,17 +17,9 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	auto context = SEALContext::Create(parms);
 
 	KeyGenerator keygen(context);
-	PublicKey public_key = keygen.public_key();
 	SecretKey secret_key = keygen.secret_key();
 	Evaluator evaluator(context);
 	IntegerEncoder encoder(context);
-
-	//Load key and Weights
-	ifstream publicKeyFile;
-	publicKeyFile.open("Counter/publicKey.txt");
-	cout << "Load public key" << endl;
-	public_key.load(context, publicKeyFile);
-	Encryptor encryptor(context, public_key);
 
 	char shareName[100];
 	char command[200];
@@ -52,6 +41,7 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		trusteeShare.close();
 	}
 	allShares.close();
+
 	//Take the first 3 shares and combine them
 	sprintf(command, "head -n %i allShares.txt | secret-share-combine > password.txt", NUMBERTRUSTEES);
 	system(command);
@@ -100,7 +90,7 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	decryptor.decrypt(accumulatorEncrypted, accumulatorPlain);
 	accumulatorValue = encoder.decode_int32(accumulatorPlain);
 
-	if (accumulatorValue != controlValue && false)
+	if (accumulatorValue != controlValue)
 	{
 		cout << "Election Compromised, abort election \n";
 	}
@@ -125,9 +115,10 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			}
 			resultFile.close();
 		}
-		cout << "Winner is Candidate_" << to_string(winner) << " With : " << to_string(winnerScore) << endl;
+		if(tie) cout << "Tie" << endl;
+		else cout << "Winner is Candidate_" << to_string(winner) << " With : " << to_string(winnerScore) << endl;
 	}
 
-	publicKeyFile.close();
+	accumulatorFile.close();
 	privateKeyFile.close();
 }
