@@ -41,11 +41,11 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	//Load key and Weights
 	ifstream electionPublicKeyFile;
 	electionPublicKeyFile.open("Voter/publicKey.txt");
-	ifstream privateKeyFile;
-	privateKeyFile.open("Admin/ElectionKeys/privateKey.txt");
+	ifstream privateKeyFile1;
+	privateKeyFile1.open("Admin/ElectionKeys/privateKey.txt");
 	cout << "Load public key" << endl;
 	public_key.load(context, electionPublicKeyFile);
-	secret_key.load(context, privateKeyFile);
+	secret_key.load(context, privateKeyFile1);
 	Encryptor encryptor(context, public_key);
 	Decryptor decryptor(context, secret_key);
 	electionPublicKeyFile.close();
