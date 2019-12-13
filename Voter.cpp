@@ -233,8 +233,6 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 	tempSignFile.close();
 	sprintf(command, "mv %s Ballot/", filename.c_str());
-	system(command);
-	system("rm signatureTemp.txt");
 
 	/* Removes all digests and ciphers */
 	EVP_cleanup();
