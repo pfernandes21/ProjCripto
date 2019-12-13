@@ -1,13 +1,13 @@
 # ProjCripto
 
-###Para compilar o programa, correr os seguintes comandos na diretoria principal do projeto:
+### Para compilar o programa, correr os seguintes comandos na diretoria principal do projeto:
 ```
 -cmake .
 -make
 -chmod u+x bash.sh
 -chmod u+x exit.sh
 ```
-###Para executar o programa:
+### Para executar o programa:
 ```
 ./election [number of candidates] [number of voters] [number of trustees]
 ```
