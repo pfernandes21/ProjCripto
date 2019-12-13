@@ -15,6 +15,7 @@ target_sources(election
     PRIVATE
         Admin.cpp
         Voter.cpp
+        Signer.cpp
         Tally.cpp
         Counter.cpp
 )
