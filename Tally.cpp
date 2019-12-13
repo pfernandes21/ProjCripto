@@ -115,6 +115,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		voterWeightFile.open(voterWeightFileName);
 		voterWeights[n].load(context, voterWeightFile);
 		voterWeightFile.close();
+		cout << "weight " << voterWeights << endl;
 	}
 	//Initialize voterResults
 	int aux = 0;
