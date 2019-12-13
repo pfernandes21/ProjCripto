@@ -30,8 +30,30 @@ void signer(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	/* Load config file, and other important initialisation */
 	OPENSSL_config(NULL);
 
+    int myId = 0, myVote = 0;
+
+	string line;
+
+	cout << "Insira o seu numero de votante:" << endl;
+	cin >> myId;
+
+	//get id do voto no ficheiro
+	ifstream IdFileIn("Voter/id.txt", ios::in);
+	if (IdFileIn.is_open())
+	{
+		while (getline(IdFileIn, line))
+		{
+			myVote = stoi(line);
+		}
+		IdFileIn.close();
+	}
+	else
+	{
+		return;
+	}
+
     string filename;
-    
+
     filename = "Voter/Voter" + to_string(myId) + "/clientPrivateKey" + to_string(myId) + ".key";
     std::ifstream privateKeyFile(filename);
 	std::string myprivateKey((std::istreambuf_iterator<char>(privateKeyFile)),
