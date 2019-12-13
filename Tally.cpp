@@ -102,7 +102,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	string voterID, voterIDFromList;
 	int voters[NUMBERVOTERS] = {0};
 	Ciphertext voteResults[NUMBERCANDIDATES];
-	Ciphertext voterWeights[NUMBERVOTERS];
+	Ciphertext voterWeights;//[NUMBERVOTERS];
 
 	//Fetch the voter Weights
 	string voterWeightFileName;
@@ -114,7 +114,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		cout << "hola " << voterWeightFileName << endl;
 		//Load encrypted weight
 		voterWeightFile.open(voterWeightFileName);
-		voterWeights[n].load(context, voterWeightFile);
+		voterWeights.load(context, voterWeightFile);
 		voterWeightFile.close();
 	}
 	//Initialize voterResults
