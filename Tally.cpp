@@ -146,6 +146,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		istringstream ss(vote);
 		do
 		{
+			printf("line\n");
 			// Read a word
 			string word;
 			ss >> word;
