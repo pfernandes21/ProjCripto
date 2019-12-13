@@ -294,7 +294,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				encryptedVote.load(context, voteEncryptedFile);
 				evaluator.add_inplace(accumulator, encryptedVote);
 				//multiply weight by encrypted vote and add to encrypted file
-				//cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
+				cout << "hey" << decryptor.invariant_noise_budget(voterWeights[k]) << endl;
 				evaluator.multiply(voterWeights[k], encryptedVote, multiply_result);
 				evaluator.add_inplace(voteResults[stoi(word)], multiply_result);
 				voteEncryptedFile.close();
