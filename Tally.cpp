@@ -137,7 +137,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		std::ifstream voteFile(voteFileName);
 		std::string vote((std::istreambuf_iterator<char>(voteFile)),
 						 std::istreambuf_iterator<char>());
-
+		cout << "vote " << vote << endl;
 		std::ofstream tempFile("signatureTemp.txt");
 		std::ifstream voteEncryptedFile;
 		string word;
