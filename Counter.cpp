@@ -43,7 +43,7 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	ifstream trusteeShare;
 
 	//opening each trustee document
-	for (int i = 0; i < NUMBERTRUSTEES; i++)
+	for (int i = 1; i < NUMBERTRUSTEES; i++)
 	{
 		sprintf(shareName, "Trustees/Trustee%i/share%i.txt", i, i);
 		trusteeShare.open(shareName);
@@ -92,7 +92,7 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	}
 	else
 	{
-		for (int i = 1; i < NUMBERCANDIDATES; i++)
+		for (int i = 0; i < NUMBERCANDIDATES; i++)
 		{
 			resultFileName = "resultCandidate_" + to_string(i) + ".txt";
 			resultFile.open(resultFileName);

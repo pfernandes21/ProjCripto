@@ -101,8 +101,8 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	bool voteNumberCheck = false;
 	string voterID, voterIDFromList;
 	int voters[NUMBERVOTERS] = {0};
-	Ciphertext voteResults;//[NUMBERCANDIDATES];
-	Ciphertext voterWeights;//[NUMBERVOTERS];
+	Ciphertext voteResults[NUMBERCANDIDATES];
+	Ciphertext voterWeights[NUMBERVOTERS];
 
 	//Fetch the voter Weights
 	string voterWeightFileName;
@@ -111,10 +111,9 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	for (int n = 0; n < NUMBERVOTERS; n++)
 	{
 		voterWeightFileName = "Tally/encryptedWeight_" + to_string(n);
-		cout << "hola " << voterWeightFileName << endl;
 		//Load encrypted weight
 		voterWeightFile.open(voterWeightFileName);
-		voterWeights.load(context, voterWeightFile);
+		voterWeights[n].load(context, voterWeightFile);
 		voterWeightFile.close();
 	}
 	//Initialize voterResults
@@ -122,7 +121,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	Plaintext voteResults_plain(to_string(aux));
 	for (int m = 0; m < NUMBERCANDIDATES; m++)
 	{
-		encryptor.encrypt(voteResults_plain, voteResults);
+		encryptor.encrypt(voteResults_plain, voteResults[m]);
 	}
 
 	bool firstWord;
@@ -300,8 +299,8 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				evaluator.add_inplace(accumulator, encryptedVote);
 				//multiply weight by encrypted vote and add to encrypted file
 				cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
-				evaluator.multiply(voterWeights, encryptedVote, multiply_result);
-				evaluator.add_inplace(voteResults, multiply_result);
+				evaluator.multiply(voterWeights[k], encryptedVote, multiply_result);
+				evaluator.add_inplace(voteResults[stoi(word)], multiply_result);
 				voteEncryptedFile.close();
 				continue;
 			}
@@ -320,7 +319,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	{
 		resultFileName = "resultCandidate_" + to_string(b) + ".txt";
 		resultFile.open(resultFileName);
-		voteResults.save(resultFile);
+		voteResults[b].save(resultFile);
 		resultFile.close();
 	}
 
