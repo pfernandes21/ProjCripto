@@ -64,7 +64,7 @@ char* signMessage(std::string , std::string );
 
 bool verifySignature(std::string , std::string, char* );
 
-
+bool simpleSHA256(void *, unsigned long, unsigned char *);
 
 //-----------------------------------------------------------------------------
 
