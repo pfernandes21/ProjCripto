@@ -88,7 +88,6 @@ void createWeights(int NUMBERVOTERS)
 		sprintf(filename, "Admin/encryptedWeight_%i", i);
 		myfile.open(filename);
 		encryptor.encrypt(weight, encryptedWeight);
-		cout << "hey" << decryptor.invariant_noise_budget(encryptedWeight) << endl;
 		encryptedWeight.save(myfile);
 		myfile.close();
 		//Move weight to Tally

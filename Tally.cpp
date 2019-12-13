@@ -111,6 +111,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	for (int n = 0; n < NUMBERVOTERS; n++)
 	{
 		voterWeightFileName = "Tally/encryptedWeight_" + to_string(n);
+		cout << "hola " << voterWeightFileName << endl;
 		//Load encrypted weight
 		voterWeightFile.open(voterWeightFileName);
 		voterWeights[n].load(context, voterWeightFile);
