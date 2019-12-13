@@ -10,7 +10,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
 set(OPENSSL_USE_STATIC_LIBS TRUE)
 find_package(OpenSSL REQUIRED)
 
-add_executable(signer Signer.cpp)
 add_executable(election Election.cpp)
 target_sources(election
     PRIVATE
@@ -29,5 +28,3 @@ find_package(SEAL 3.4.4 EXACT REQUIRED
 # Link Microsoft SEAL
 target_link_libraries(election SEAL::seal)
 target_link_libraries(election OpenSSL::Crypto)
-target_link_libraries(signer SEAL::seal)
-target_link_libraries(signer OpenSSL::Crypto)

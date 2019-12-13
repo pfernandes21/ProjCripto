@@ -22,7 +22,7 @@ openssl req -new -x509 -days 3650 -key CA/my-ca.key -out CA/my-ca.crt;
 cp CA/my-ca.crt ../Tally/Certs/;
 #
 #Create certificate for voters
-for (( i=1; i<=${1}; i++ ))
+for (( i=0; i<${1}; i++ ))
 do
     echo "Create Certificate for Voter${i}";
     openssl genrsa -des3 -out client-cert${i}.key 1024;
@@ -44,7 +44,7 @@ cd ../Voter;
 #Reset vote count
 echo "0" > 'id.txt';
 #Create Voters Directories
-for (( i=1; i<=${1}; i++ ))
+for (( i=0; i<${1}; i++ ))
 do
     rm -r Voter${i};
     mkdir Voter${i};
@@ -52,7 +52,7 @@ done
 cd ../Admin;
 #
 #Send keys and files to Voters
-for (( i=1; i<=${1}; i++ ))
+for (( i=0; i<${1}; i++ ))
 do
     #Send root CA cert to Voter
     cp CA/my-ca.crt ../Voter/Voter${i}/;
