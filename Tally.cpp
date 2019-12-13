@@ -101,7 +101,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	bool voteNumberCheck = false;
 	string voterID, voterIDFromList;
 	int voters[NUMBERVOTERS] = {0};
-	Ciphertext voteResults[NUMBERCANDIDATES];
+	Ciphertext voteResults;//[NUMBERCANDIDATES];
 	Ciphertext voterWeights;//[NUMBERVOTERS];
 
 	//Fetch the voter Weights
@@ -122,7 +122,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	Plaintext voteResults_plain(to_string(aux));
 	for (int m = 0; m < NUMBERCANDIDATES; m++)
 	{
-		encryptor.encrypt(voteResults_plain, voteResults[m]);
+		encryptor.encrypt(voteResults_plain, voteResults);
 	}
 
 	bool firstWord;
@@ -301,7 +301,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				//multiply weight by encrypted vote and add to encrypted file
 				cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
 				evaluator.multiply(voterWeights, encryptedVote, multiply_result);
-				evaluator.add_inplace(voteResults[stoi(word)], multiply_result);
+				evaluator.add_inplace(voteResults, multiply_result);
 				voteEncryptedFile.close();
 				continue;
 			}
@@ -320,7 +320,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	{
 		resultFileName = "resultCandidate_" + to_string(b) + ".txt";
 		resultFile.open(resultFileName);
-		voteResults[b].save(resultFile);
+		voteResults.save(resultFile);
 		resultFile.close();
 	}
 
