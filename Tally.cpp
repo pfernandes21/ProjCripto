@@ -212,6 +212,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 								 std::istreambuf_iterator<char>());
 
 		//Check signature with encrypted data, public key and signature in vote
+		cout << "signature " << charSignature << endl;
 		authentic = verifySignature(mypublicKey, dataTempFile, charSignature);
 
 		if (authentic)
