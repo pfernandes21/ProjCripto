@@ -55,7 +55,7 @@ void createWeights(int NUMBERVOTERS)
 
 	IntegerEncoder encoder(context);
 
-	//Load key and Weights
+	//Load key
 	ifstream publicKeyFile;
 	publicKeyFile.open("Admin/ElectionKeys/publicKey.txt");
 
@@ -73,15 +73,19 @@ void createWeights(int NUMBERVOTERS)
 	int randvalue;
 	for (int i = 0; i < NUMBERVOTERS; i++)
 	{
+		//generate weight between 1 and 5
 		randvalue = rand() % (5 - 1 + 1) + 1;
 		weight = encoder.encode(randvalue);
 		cout << "Peso voter" << i << "= " << randvalue << endl;
+
+		//encrypt weight into file
 		sprintf(filename, "Admin/encryptedWeight_%d", i);
 		myfile.open(filename);
 		encryptor.encrypt(weight, encryptedWeight);
 		encryptedWeight.save(myfile);
 		myfile.close();
-		//Move weight to Tally
+
+		//Move encrypted weight to Tally
 		sprintf(command, "mv %s Tally/", filename);
 		system(command);
 	}
