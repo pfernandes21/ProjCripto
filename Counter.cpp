@@ -68,6 +68,10 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	secret_key.load(context, privateKeyFile);
 	Decryptor decryptor(context, secret_key);
 
+	ifstream actualVotersFile("Tally/actualVoters.txt");
+	string actualVoters((istreambuf_iterator<char>(actualVotersFile)), istreambuf_iterator<char>());
+	NUMBERVOTERS = stoi(actualVoters);
+	
 	//Fetch the accumulator and results:
 	int controlValue = NUMBERVOTERS * NUMBERCANDIDATES;
 	ifstream accumulatorFile;
