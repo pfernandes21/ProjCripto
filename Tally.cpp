@@ -300,7 +300,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				//multiply weight by encrypted vote and add to encrypted file
 				
 				Plaintext accumulatorPlain;
-				decryptor.decrypt(voterWeights[n], accumulatorPlain);
+				decryptor.decrypt(voterWeights[k], accumulatorPlain);
 				cout << "weigth " << encoder.decode_int32(accumulatorPlain) << endl;;
 
 				decryptor.decrypt(encryptedVote, accumulatorPlain);
