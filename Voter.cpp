@@ -90,15 +90,6 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	cout << "Insira o seu numero de votante:" << endl;
 	cin >> myId;
 
-	/* Load the human readable error strings for libcrypto */
-	ERR_load_crypto_strings();
-
-	/* Load all digest and cipher algorithms */
-	OpenSSL_add_all_algorithms();
-
-	/* Load config file, and other important initialisation */
-	OPENSSL_config(NULL);
-
 	string filename = "Voter/Voter" + to_string(myId) + "/clientPublicKey" + to_string(myId) + ".key";
 	//Fetch private and public keys of voter in order to sign
 	std::ifstream publicKeyFile(filename);
@@ -106,13 +97,6 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 							std::istreambuf_iterator<char>());
 
 	cout << mypublicKey;
-	filename = "Voter/Voter" + to_string(myId) + "/clientPrivateKey" + to_string(myId) + ".key";
-
-	std::ifstream privateKeyFile(filename);
-	std::string myprivateKey((std::istreambuf_iterator<char>(privateKeyFile)),
-							 std::istreambuf_iterator<char>());
-
-	cout << myprivateKey;
 
 	//get id do voto no ficheiro
 	ifstream IdFileIn("Voter/id.txt", ios::in);
@@ -213,10 +197,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	//add Timestamp to signature file
 	tempSignFile << timestamp;
 
-	//Make signature from tempFile
-	std::ifstream tempFile("signatureTemp.txt");
-	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
-							 std::istreambuf_iterator<char>());
+	tempSignFile.close();
 
 	unsigned char md[100];
 	if(!simpleSHA256((void*)dataTempFile.c_str(), dataTempFile.length(), md))
@@ -225,25 +206,6 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		exit(0);
 	}
 	string mdTemp(reinterpret_cast<char*>(md));
-	char *signature = signMessage(myprivateKey, mdTemp);
-	votesFile << ' ' << signature;
-	votesFile.close();
-
-	filename = "Voter/vote" + to_string(myVote) + ".txt";
-
-	tempSignFile.close();
-	sprintf(command, "mv %s Ballot/", filename.c_str());
-	system(command);
-	system("rm signatureTemp.txt");
-
-	/* Removes all digests and ciphers */
-	EVP_cleanup();
-
-	/* if you omit the next, a small leak may be left when you make use of the BIO (low level API) for e.g. base64 transformations */
-	CRYPTO_cleanup_all_ex_data();
-
-	/* Remove error strings */
-	ERR_free_strings();
-
+	
 	return;
 }
