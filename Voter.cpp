@@ -174,7 +174,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		}
 	}
 
-	for(i=0;i<NUMBERCANDIDATES;i++)
+	for(int i=0;i<NUMBERCANDIDATES;i++)
 	{
 		if(candidates_voted[i] == 0)
 		{
