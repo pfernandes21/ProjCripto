@@ -180,6 +180,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			}
 			else if (voterIDCheck)
 			{
+				printf("check\n");
 				voterIDCheck = false;
 				voterID = word;
 				continue;
