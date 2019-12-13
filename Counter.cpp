@@ -58,10 +58,11 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	secret_key.load(context, privateKeyFile);
 	Decryptor decryptor(context, secret_key);
 
+	string line;
 	ifstream actualVotersFile("Counter/actualVoters.txt", ios::in);
 	if (actualVotersFile.is_open())
 	{
-		while (getline(IdFileIn, line))
+		while (getline(actualVotersFile, line))
 		{
 			NUMBERVOTERS = stoi(line);
 		}
