@@ -92,7 +92,7 @@ void counter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	}
 	else
 	{
-		for (int i = 0; i < NUMBERCANDIDATES; i++)
+		for (int i = 1; i < NUMBERCANDIDATES; i++)
 		{
 			resultFileName = "resultCandidate_" + to_string(i) + ".txt";
 			resultFile.open(resultFileName);
