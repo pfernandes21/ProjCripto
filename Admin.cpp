@@ -77,7 +77,7 @@ void createWeights(int NUMBERVOTERS)
 		randvalue = rand() % (5 - 1 + 1) + 1;
 		weight = encoder.encode(randvalue);
 		cout << "Peso voter" << i << "= " << randvalue << endl;
-		sprintf(filename, "Admin/encryptedWeight_%i", i);
+		sprintf(filename, "Admin/encryptedWeight_%d", i);
 		myfile.open(filename);
 		encryptor.encrypt(weight, encryptedWeight);
 		encryptedWeight.save(myfile);
