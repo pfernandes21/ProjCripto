@@ -307,7 +307,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				word.erase(16);
 				word.erase(word.begin(), word.end() - 1);
 				cout << "word " << word << endl;*/
-				sscanf( word.c_str(), "Ballot/%d,%d,%d,%d.txt", hour, minute, second, id);
+				sscanf( word.c_str(), "Ballot/%d,%d,%d,%d.txt", &hour, &minute, &second, &id);
 				// that will have all the votes of that candidate ( do a vector of ciphetext w/size of
 				// number of candidates)
 				Ciphertext encryptedVote;
