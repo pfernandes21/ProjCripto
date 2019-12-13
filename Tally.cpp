@@ -128,7 +128,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	string timestamp;
 	for (int j = 0; j < numberVotes; j++)
 	{
-		voteFileName = "Ballot/vote" + to_string(j) + ".txt";
+		voteFileName = "Ballot/vote" + to_string(j+1) + ".txt";
 		signature = "";
 		signatureCheck = false;
 		voterIDCheck = true;
@@ -222,7 +222,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			//first vote
 			if (voters[stoi(voterID)] == 0)
 			{
-				voters[stoi(voterID)] = j;
+				voters[stoi(voterID)] = j + 1;
 				lastTimestamps[stoi(voterID)] = timestamp;
 			}
 			else
@@ -230,7 +230,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				//compare timestmaps
 				if (compareTimestamps(timestamp, lastTimestamps[stoi(voterID)]))
 				{
-					voters[stoi(voterID)] = j;
+					voters[stoi(voterID)] = j + 1;
 				}
 			}
 		}

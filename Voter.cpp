@@ -101,6 +101,19 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		return;
 	}
 
+	//update id do voto no ficheiro
+	myVote++;
+	ofstream IdFileOut("Voter/id.txt", ios::out);
+	if (IdFileOut.is_open())
+	{
+		IdFileOut << to_string(myVote) << endl;
+		IdFileOut.close();
+	}
+	else
+	{
+		return;
+	}
+	
 	//ficheiro de voto
 	filename = "Voter/vote" + to_string(myVote) + ".txt";
 	ofstream votesFile(filename);
@@ -194,19 +207,6 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	sprintf(command, "mv %s Ballot/", filename.c_str());
 	system(command);
 	system("rm signatureTemp.txt");
-
-	//update id do voto no ficheiro
-	myVote++;
-	ofstream IdFileOut("Voter/id.txt", ios::out);
-	if (IdFileOut.is_open())
-	{
-		IdFileOut << to_string(myVote) << endl;
-		IdFileOut.close();
-	}
-	else
-	{
-		return;
-	}
 
 	/* Removes all digests and ciphers */
 	EVP_cleanup();
