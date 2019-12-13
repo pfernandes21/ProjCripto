@@ -222,7 +222,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			//first vote
 			if (voters[stoi(voterID)] == 0)
 			{
-				voters[stoi(voterID)] = j + 1;
+				voters[stoi(voterID)] = j;
 				lastTimestamps[stoi(voterID)] = timestamp;
 			}
 			else
@@ -230,7 +230,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				//compare timestmaps
 				if (compareTimestamps(timestamp, lastTimestamps[stoi(voterID)]))
 				{
-					voters[stoi(voterID)] = j + 1;
+					voters[stoi(voterID)] = j;
 				}
 			}
 		}
