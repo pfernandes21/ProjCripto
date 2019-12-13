@@ -66,13 +66,15 @@ void signer(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
 							 std::istreambuf_iterator<char>());
 
+    filename = "Voter/vote" + to_string(myVote) + ".txt";
+	ofstream votesFile(filename);
+
     char *signature = signMessage(myprivateKey, dataTempFile);
 	votesFile << ' ' << signature;
 	votesFile.close();
 
 	filename = "Voter/vote" + to_string(myVote) + ".txt";
 
-	tempSignFile.close();
 	sprintf(command, "mv %s Ballot/", filename.c_str());
 	system(command);
 	system("rm signatureTemp.txt");
