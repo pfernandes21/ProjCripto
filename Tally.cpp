@@ -1,21 +1,5 @@
 #include "resources.h"
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <ctime>
-
-#include <openssl/conf.h>
-#include <openssl/evp.h>
-#include <openssl/err.h>
-
-#include <openssl/aes.h>
-#include <openssl/rsa.h>
-#include <openssl/pem.h>
-#include <openssl/ssl.h>
-#include <openssl/bio.h>
-#include <assert.h>
-
 using namespace std;
 using namespace seal;
 
@@ -47,9 +31,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	auto context = SEALContext::Create(parms);
 	KeyGenerator keygen(context);
 	PublicKey public_key = keygen.public_key();
-	SecretKey secret_key = keygen.secret_key();
 	Evaluator evaluator(context);
-	IntegerEncoder encoder(context);
 
 	//Load key and Weights
 	ifstream electionPublicKeyFile;
@@ -59,9 +41,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	Encryptor encryptor(context, public_key);
 
 	electionPublicKeyFile.close();
-
-	//Command for command line
-	char command[300];
 
 	/* Load the human readable error strings for libcrypto */
 	ERR_load_crypto_strings();
@@ -94,42 +73,22 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	string voteFileName;
 	string signature;
 	string voterKeyFileName;
+	string voterID;
 	bool signatureCheck;
 	bool voterIDCheck;
 	bool authentic = false;
-	bool fileExists = false;
-	bool voteNumberCheck = false;
-	string voterID, voterIDFromList;
+	bool fileExists = false;;
 	int voters[NUMBERVOTERS] = {0};
+
 	Ciphertext voteResults[NUMBERCANDIDATES];
 	Ciphertext voterWeights[NUMBERVOTERS];
-
-	/**/
-	ifstream privateKeyFile;
-	privateKeyFile.open("Admin/ElectionKeys/privateKey.txt");
-	secret_key.load(context, privateKeyFile);
-	Decryptor decryptor(context, secret_key);
-	/**/
 
 	//Fetch the voter Weights
 	string voterWeightFileName;
 	ifstream voterWeightFile;
-	//Cicle for reading all votes in ballot
-	/*for (int n = 0; n < NUMBERVOTERS; n++)
-	{
-		voterWeightFileName = "Tally/encryptedWeight_" + to_string(n);
-		//Load encrypted weight
-		voterWeightFile.open(voterWeightFileName);
-		voterWeights[n].load(context, voterWeightFile);
-		voterWeightFile.close();
-
-		Plaintext accumulatorPlain;
-		decryptor.decrypt(voterWeights[n], accumulatorPlain);
-		cout << "weigth " << encoder.decode_int32(accumulatorPlain) << endl;
-	}*/
+	
 	//Initialize voterResults
-	int aux = 0;
-	Plaintext voteResults_plain(to_string(aux));
+	Plaintext voteResults_plain(to_string(0));
 	for (int m = 0; m < NUMBERCANDIDATES; m++)
 	{
 		encryptor.encrypt(voteResults_plain, voteResults[m]);
@@ -263,15 +222,21 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	//Compute checkSum for each vote and add it to an accumulator
 	//Cycle through the last votes of each voter
 	int lastVote;
-	int x = 0;
-	Plaintext accumulator_plain(to_string(x));
+	Plaintext accumulator_plain(to_string(0));
 	//Encrypt plain text
 	Ciphertext accumulator;
 	encryptor.encrypt(accumulator_plain, accumulator);
-	
+	int actualVoters = NUMBERVOTERS;
+
 	for (int k = 0; k < NUMBERVOTERS; k++)
 	{
 		lastVote = voters[k];
+		//If voter did not vote skip
+		if (lastVote == 0){ 
+			actualVoters -= 1;
+			continue;		
+		}
+	
 		voteFileName = "Ballot/vote" + to_string(lastVote) + ".txt";
 		cout << "Opening for checksum : " << voteFileName << endl;
 		std::ifstream voteFile(voteFileName);
@@ -300,7 +265,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				Ciphertext multiply_result;
 				ifstream voteEncryptedFile;
 				//delete the " " from the begining and end
-				cout << "1word " << word << endl;
 				word.erase(word.begin());
 				word.erase(word.end() - 1);
 				//add path to directorie
@@ -320,6 +284,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				continue;
 			}
 		} while (ss);
+		voteFile.close();
 	}
 
 	//Output result files and accumulator
@@ -337,8 +302,12 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		voteResults[b].save(resultFile);
 		resultFile.close();
 	}
-
 	accumulatorFile.close();
+
+	//Send number of actual voters to Counter
+	ofstream actualVotersFile("actualVoters.txt");
+	actualVotersFile << actualVoters;
+	actualVotersFile.close();
 
 	/* Removes all digests and ciphers */
 	EVP_cleanup();

@@ -1,7 +1,6 @@
 #include "resources.h"
 
-#include <iostream>
-#include <fstream>
+
 using namespace std;
 using namespace seal;
 
@@ -20,13 +19,11 @@ void createKeys()
 	auto context = SEALContext::Create(parms);
 
 	//Create key
-	cout << "After context is made" << endl;
 	KeyGenerator keygen(context);
 	PublicKey public_key = keygen.public_key();
 	SecretKey secret_key = keygen.secret_key();
 
 	//Send keys to files
-
 	ofstream privateKeyFile;
 	ofstream publicKeyFile;
 
@@ -50,7 +47,6 @@ void createWeights(int NUMBERVOTERS)
 	CoeffModulus::BFVDefault(poly_modulus_degree);
 	parms.set_coeff_modulus(CoeffModulus::BFVDefault(poly_modulus_degree));
 	parms.set_plain_modulus(512);
-
 	auto context = SEALContext::Create(parms);
 
 	KeyGenerator keygen(context);
@@ -62,14 +58,10 @@ void createWeights(int NUMBERVOTERS)
 
 	//Load key and Weights
 	ifstream publicKeyFile;
-	ifstream privateKeyFile;
 	publicKeyFile.open("Admin/ElectionKeys/publicKey.txt");
-	privateKeyFile.open("Admin/ElectionKeys/privateKey.txt");
 
 	cout << "Load public key" << endl;
 	public_key.load(context, publicKeyFile);
-	secret_key.load(context, privateKeyFile);
-	Decryptor decryptor(context, secret_key);
 	Encryptor encryptor(context, public_key);
 
 	Plaintext weight;
@@ -84,7 +76,7 @@ void createWeights(int NUMBERVOTERS)
 	{
 		randvalue = rand() % (5 - 1 + 1) + 1;
 		weight = encoder.encode(randvalue);
-		cout << "valor: " << randvalue << endl;
+		cout << "Peso voter" << i << "= " << randvalue << endl;
 		sprintf(filename, "Admin/encryptedWeight_%i", i);
 		myfile.open(filename);
 		encryptor.encrypt(weight, encryptedWeight);
@@ -96,7 +88,6 @@ void createWeights(int NUMBERVOTERS)
 	}
 
 	publicKeyFile.close();
-	privateKeyFile.close();
 }
 
 void admin(int n_candidates, int n_voters, int n_trustees)
