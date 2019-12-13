@@ -305,7 +305,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	accumulatorFile.close();
 
 	//Send number of actual voters to Counter
-	ofstream actualVotersFile("actualVoters.txt");
+	ofstream actualVotersFile("Counter/actualVoters.txt");
 	actualVotersFile << actualVoters;
 	actualVotersFile.close();
 
