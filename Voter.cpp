@@ -176,6 +176,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			encryptedVote.save(candidateVoteFile);
 			encryptedVote.save(tempSignFile);
 			candidateVoteFile.close();
+			cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
 		}
 
 		if (newCandidate)
