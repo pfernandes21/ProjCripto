@@ -181,7 +181,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			}
 			else if (voterIDCheck)
 			{
-				printf("check\n");
+				cout << "word " << word << endl;
 				voterIDCheck = false;
 				voterID = word;
 				continue;
