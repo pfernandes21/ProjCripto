@@ -224,7 +224,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		cout << "yayya mermao" << endl;
 		exit(0);
 	}
-	string mdTemp(md);
+	string mdTemp(reinterpret_cast<char*>(md));
 	char *signature = signMessage(myprivateKey, mdTemp);
 	votesFile << ' ' << signature;
 	votesFile.close();
