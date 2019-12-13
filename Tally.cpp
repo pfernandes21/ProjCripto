@@ -301,10 +301,10 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				
 				Plaintext accumulatorPlain;
 				decryptor.decrypt(voterWeights[k], accumulatorPlain);
-				cout << "weigth " << encoder.decode_int32(accumulatorPlain) << endl;;
+				cout << "weigth " << encoder.decode_int32(accumulatorPlain) << endl;
 
 				decryptor.decrypt(encryptedVote, accumulatorPlain);
-				cout << "vote " << encoder.decode_int32(accumulatorPlain) << endl;;
+				cout << "vote " << encoder.decode_int32(accumulatorPlain) << endl;
 
 				evaluator.multiply(voterWeights[k], encryptedVote, multiply_result);
 				evaluator.add_inplace(voteResults[stoi(word)], multiply_result);
