@@ -155,6 +155,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		//Read vote, and when reading files of encrypted votes open them
 		// then add them in a file for later signature check
 		istringstream ss(vote);
+		bool valid = true;
 		do
 		{
 			// Read a word
@@ -166,11 +167,15 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 			if (hasEnding(word, ".txt\""))
 			{
+				int id, hour, minute, second;
+
 				//delete the " " from the begining and end
 				word.erase(word.begin());
 				word.erase(word.end() - 1);
 				//add path to directorie
 				word = "Ballot/" + word;
+				sscanf( word.c_str(), "Ballot/%d,%d,%d,%d.txt", &hour, &minute, &second, &id);
+				if(id >= NUMBERCANDIDATES) valid = false;
 				//OpenEncrypted vote file and copy its data to tempFile
 				voteEncryptedFile.open(word);
 				std::string dataEncrypted((std::istreambuf_iterator<char>(voteEncryptedFile)),
@@ -226,7 +231,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		//Check signature with encrypted data, public key and signature in vote
 		authentic = verifySignature(mypublicKey, dataTempFile, charSignature);
 
-		if (authentic)
+		if (authentic && valid)
 		{
 			std::cout << "Authentic" << std::endl;
 			//first vote
@@ -302,11 +307,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				word = "Ballot/" + word;
 				//Load encrypted vote
 				voteEncryptedFile.open(word);
-				/*cout << "2word " << word << endl;
-				//Cut word down to obtain Id of candidate
-				word.erase(16);
-				word.erase(word.begin(), word.end() - 1);
-				cout << "word " << word << endl;*/
 				sscanf( word.c_str(), "Ballot/%d,%d,%d,%d.txt", &hour, &minute, &second, &id);
 				// that will have all the votes of that candidate ( do a vector of ciphetext w/size of
 				// number of candidates)
@@ -314,14 +314,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				encryptedVote.load(context, voteEncryptedFile);
 				evaluator.add_inplace(accumulator, encryptedVote);
 				//multiply weight by encrypted vote and add to encrypted file
-				
-				/*Plaintext accumulatorPlain;
-				decryptor.decrypt(voterWeights[k], accumulatorPlain);
-				cout << "weigth " << encoder.decode_int32(accumulatorPlain) << endl;
-
-				decryptor.decrypt(encryptedVote, accumulatorPlain);
-				cout << "vote " << encoder.decode_int32(accumulatorPlain) << endl;*/
-
 				evaluator.multiply(encryptedVote, voterWeights[k], multiply_result);
 				evaluator.add_inplace(voteResults[id], multiply_result);
 				voteEncryptedFile.close();
@@ -347,26 +339,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	}
 
 	accumulatorFile.close();
-	/*
-	ifstream electionPrivateKeyFile;
-	electionPrivateKeyFile.open("Administrator/electionKeys/privateKey.txt");
-	cout << "Load private key" << endl;
-	secret_key.load(context, electionPrivateKeyFile);
-	Decryptor decryptor(context, secret_key);
-	//Decryption
-	Plaintext accumulator_decrypted;
-	Plaintext results_decrypted[NUMBERCANDIDATES];
-	decryptor.decrypt(accumulator, accumulator_decrypted);
-	decryptor.decrypt(voteResults[0], results_decrypted[0]);
-	decryptor.decrypt(voteResults[1], results_decrypted[1]);
-	cout << "Ammo available "<< decryptor.invariant_noise_budget(accumulator) <<endl;
-	cout << "Ammo available result 0 "<< decryptor.invariant_noise_budget(voteResults[0]) <<endl;
-	cout << "Ammo available result 1 "<< decryptor.invariant_noise_budget(voteResults[1]) <<endl;
-	cout << "Accumulator : " << encoder.decode_int32(accumulator_decrypted) <<endl;
-	cout << "result 0 : " << encoder.decode_int32(results_decrypted[0]) <<endl;
-	cout << "result 1 : " << encoder.decode_int32(results_decrypted[1]) <<endl;
-	electionPrivateKeyFile.close();
-*/
 
 	/* Removes all digests and ciphers */
 	EVP_cleanup();
