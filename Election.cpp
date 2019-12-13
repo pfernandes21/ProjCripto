@@ -38,7 +38,6 @@ int main(int argc, char *argv[])
     cout << "+----------------------------+----------------------------+" << endl;
     cout << "| 1. Admin                   | Admin.cpp                  |" << endl;
     cout << "| 2. Voter                   | Voter.cpp                  |" << endl;
-    cout << "| 3. Signer                  | Tally.cpp                  |" << endl;
     cout << "| 3. Tally                   | Tally.cpp                  |" << endl;
     cout << "| 4. Counter                 | Counter.cpp                |" << endl;
     cout << "+----------------------------+----------------------------+" << endl;
@@ -59,12 +58,12 @@ int main(int argc, char *argv[])
     do
     {
       cout << endl
-           << "> Run example (1 ~ 5) or exit (0): ";
+           << "> Run example (1 ~ 4) or exit (0): ";
       if (!(cin >> selection))
       {
         invalid = false;
       }
-      else if (selection < 0 || selection > 5)
+      else if (selection < 0 || selection > 4)
       {
         invalid = false;
       }
@@ -74,7 +73,7 @@ int main(int argc, char *argv[])
       }
       if (!invalid)
       {
-        cout << "  [Beep~~] Invalid option: type 0 ~ 5" << endl;
+        cout << "  [Beep~~] Invalid option: type 0 ~ 4" << endl;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
       }
@@ -91,14 +90,10 @@ int main(int argc, char *argv[])
       break;
 
     case 3:
-      signer(n_candidates, n_voters, n_trustees);
-      break;
-
-    case 4:
       tally(n_candidates, n_voters, n_trustees);
       break;
 
-    case 5:
+    case 4:
       counter(n_candidates, n_voters, n_trustees);
       break;
 

@@ -41,8 +41,6 @@ void admin(int, int, int);
 
 void voter(int, int, int);
 
-void signer(int, int, int);
-
 void tally(int, int, int);
 
 void counter(int, int, int);

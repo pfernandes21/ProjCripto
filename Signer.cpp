@@ -19,7 +19,7 @@
 using namespace std;
 using namespace seal;
 
-void signer(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
+int main()
 {
     /* Load the human readable error strings for libcrypto */
 	ERR_load_crypto_strings();
@@ -49,7 +49,7 @@ void signer(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	}
 	else
 	{
-		return;
+		return 0;
 	}
 
     string filename;
@@ -89,4 +89,5 @@ void signer(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	/* Remove error strings */
 	ERR_free_strings();
 
+    return 0;
 }
