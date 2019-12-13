@@ -317,7 +317,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				cout << "vote " << encoder.decode_int32(accumulatorPlain) << endl;
 
 				evaluator.multiply(encryptedVote, voterWeights[k], multiply_result);
-				evaluator.add_inplace(voteResults[stoi(word)], multiply_result);
+				evaluator.add_inplace(voteResults[0], multiply_result);
 				voteEncryptedFile.close();
 				continue;
 			}
