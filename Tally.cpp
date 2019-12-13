@@ -129,7 +129,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	for (int j = 0; j < numberVotes; j++)
 	{
 		voteFileName = "Ballot/vote" + to_string(j) + ".txt";
-
 		signature = "";
 		signatureCheck = false;
 		voterIDCheck = true;
@@ -138,7 +137,7 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		std::ifstream voteFile(voteFileName);
 		std::string vote((std::istreambuf_iterator<char>(voteFile)),
 						 std::istreambuf_iterator<char>());
-		cout << "vote " << vote << endl;
+
 		std::ofstream tempFile("signatureTemp.txt");
 		std::ifstream voteEncryptedFile;
 		string word;
@@ -147,7 +146,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		istringstream ss(vote);
 		do
 		{
-			cout << "word " << word << endl;
 			// Read a word
 			ss >> word;
 			//fetch timestamp
@@ -195,8 +193,6 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		tempFile << timestamp;
 
 		voterKeyFileName = "Voter/Voter" + voterID + "/clientPublicKey" + voterID + ".key";
-		cout << "id " << voterID << endl;
-		cout << "chave " << voterKeyFileName << endl;
 		//Fetch  public key of voter in order to check signature
 		std::ifstream publicKeyFile(voterKeyFileName);
 		std::string mypublicKey((std::istreambuf_iterator<char>(publicKeyFile)), std::istreambuf_iterator<char>());
