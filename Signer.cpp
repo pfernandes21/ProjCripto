@@ -30,6 +30,8 @@ void signer(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	/* Load config file, and other important initialisation */
 	OPENSSL_config(NULL);
 
+    string filename;
+    
     filename = "Voter/Voter" + to_string(myId) + "/clientPrivateKey" + to_string(myId) + ".key";
     std::ifstream privateKeyFile(filename);
 	std::string myprivateKey((std::istreambuf_iterator<char>(privateKeyFile)),
