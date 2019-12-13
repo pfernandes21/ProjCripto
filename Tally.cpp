@@ -280,8 +280,8 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				word.erase(word.begin());
 				word.erase(word.end() - 1);
 				//add path to directorie
-				cout << "voto " << word << endl;
 				word = "Ballot/" + word;
+				cout << "voto " << word << endl;
 				//Load encrypted vote
 				voteEncryptedFile.open(word);
 				//Cut word down to obtain Id of candidate
