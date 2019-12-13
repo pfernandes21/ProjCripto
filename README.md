@@ -2,10 +2,10 @@
 
 ### Para compilar o programa, correr os seguintes comandos na diretoria principal do projeto:
 ```
--cmake .
--make
--chmod u+x bash.sh
--chmod u+x exit.sh
+- cmake .
+- make
+- chmod u+x bash.sh
+- chmod u+x exit.sh
 ```
 ### Para executar o programa:
 ```
