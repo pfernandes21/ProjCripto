@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
   if (argc != 4)
   {
-    printf("Insert all parameters (NCandidates, NVoters, NTrustees");
+    printf("Insert all parameters (NCandidates, NVoters, NTrustees)\n");
     exit(0);
   }
 
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
   if (!(n_candidates > 0 && n_voters > 0 && n_trustees > 0))
   {
-    printf("Insert correct parameters");
+    printf("Insert correct parameters\n");
     exit(0);
   }
 
