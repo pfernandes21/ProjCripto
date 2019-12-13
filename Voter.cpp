@@ -44,6 +44,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	cout << "Load public key" << endl;
 	public_key.load(context, electionPublicKeyFile);
 	Encryptor encryptor(context, public_key);
+	Decryptor decryptor(context, secret_key);
 	electionPublicKeyFile.close();
 
 	//timestamp
@@ -169,6 +170,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			//encrypt and store vote
 			voteValue = encoder.encode(vote);
 			encryptor.encrypt(voteValue, encryptedVote);
+			cout << "hey" << decryptor.invariant_noise_budget(encryptedVote) << endl;
 			encryptedVote.save(candidateVoteFile);
 			encryptedVote.save(tempSignFile);
 			candidateVoteFile.close();
