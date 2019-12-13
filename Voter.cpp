@@ -199,13 +199,13 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 	tempSignFile.close();
 
-	unsigned char md[100];
-	if(!simpleSHA256((void*)dataTempFile.c_str(), dataTempFile.length(), md))
-	{
-		cout << "yayya mermao" << endl;
-		exit(0);
-	}
-	string mdTemp(reinterpret_cast<char*>(md));
+	// unsigned char md[100];
+	// if(!simpleSHA256((void*)dataTempFile.c_str(), dataTempFile.length(), md))
+	// {
+	// 	cout << "yayya mermao" << endl;
+	// 	exit(0);
+	// }
+	// string mdTemp(reinterpret_cast<char*>(md));
 	
 	return;
 }
