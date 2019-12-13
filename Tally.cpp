@@ -284,6 +284,8 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			//Compute add the encrypted value of the vote to the accumulator
 			if (hasEnding(word, ".txt\""))
 			{
+				int id, hour, minute, second;
+
 				voterWeightFileName = "Tally/encryptedWeight_" + to_string(k);
 				//Load encrypted weight
 				voterWeightFile.open(voterWeightFileName);
@@ -300,11 +302,12 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				word = "Ballot/" + word;
 				//Load encrypted vote
 				voteEncryptedFile.open(word);
-				cout << "2word " << word << endl;
+				/*cout << "2word " << word << endl;
 				//Cut word down to obtain Id of candidate
 				word.erase(16);
 				word.erase(word.begin(), word.end() - 1);
-				cout << "word " << word << endl;
+				cout << "word " << word << endl;*/
+				sscanf( word, "Ballot/%d,%d,%d,%d.txt", hour, minute, second, id);
 				// that will have all the votes of that candidate ( do a vector of ciphetext w/size of
 				// number of candidates)
 				Ciphertext encryptedVote;
@@ -312,15 +315,15 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				evaluator.add_inplace(accumulator, encryptedVote);
 				//multiply weight by encrypted vote and add to encrypted file
 				
-				Plaintext accumulatorPlain;
+				/*Plaintext accumulatorPlain;
 				decryptor.decrypt(voterWeights[k], accumulatorPlain);
 				cout << "weigth " << encoder.decode_int32(accumulatorPlain) << endl;
 
 				decryptor.decrypt(encryptedVote, accumulatorPlain);
-				cout << "vote " << encoder.decode_int32(accumulatorPlain) << endl;
+				cout << "vote " << encoder.decode_int32(accumulatorPlain) << endl;*/
 
 				evaluator.multiply(encryptedVote, voterWeights[k], multiply_result);
-				evaluator.add_inplace(voteResults[stoi(word)], multiply_result);
+				evaluator.add_inplace(voteResults[id], multiply_result);
 				voteEncryptedFile.close();
 				continue;
 			}
