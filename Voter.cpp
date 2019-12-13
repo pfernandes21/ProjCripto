@@ -135,7 +135,7 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 		filename = to_string(hour) + "," + to_string(minute) + "," + to_string(second) + "," + to_string(candidate) + ".txt";
 
 		//check if file already exists (trying to vote twice on the same candidate)
-		ifstream fcheck(filename);
+		ifstream fcheck("Ballot/" + filename);
 		bool newCandidate = true;
 		if (fcheck.good())
 		{
