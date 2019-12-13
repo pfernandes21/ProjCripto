@@ -140,13 +140,14 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 		std::ofstream tempFile("signatureTemp.txt");
 		std::ifstream voteEncryptedFile;
-		string word;
+		
 		//Read vote, and when reading files of encrypted votes open them
 		// then add them in a file for later signature check
 		istringstream ss(vote);
 		do
 		{
 			// Read a word
+			string word;
 			ss >> word;
 			//fetch timestamp
 			if (firstWord)
