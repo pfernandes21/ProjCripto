@@ -75,6 +75,7 @@ void signer(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 
 	filename = "Voter/vote" + to_string(myVote) + ".txt";
 
+    char command[50];
 	sprintf(command, "mv %s Ballot/", filename.c_str());
 	system(command);
 	system("rm signatureTemp.txt");
