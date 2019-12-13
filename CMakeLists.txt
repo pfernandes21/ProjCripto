@@ -8,6 +8,7 @@ project(SEALExamples VERSION 3.4.4 LANGUAGES CXX)
 # Executable will be in ../bin
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
 set(OPENSSL_USE_STATIC_LIBS TRUE)
+set( CMAKE_CXX_FLAGS "-O3 -Wno-deprecated" )
 find_package(OpenSSL REQUIRED)
 
 add_executable(election Election.cpp)
