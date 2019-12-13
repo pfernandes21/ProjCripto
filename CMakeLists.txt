@@ -10,6 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
 set(OPENSSL_USE_STATIC_LIBS TRUE)
 find_package(OpenSSL REQUIRED)
 
+add_executable(signer Signer.cpp)
 add_executable(election Election.cpp)
 target_sources(election
     PRIVATE
