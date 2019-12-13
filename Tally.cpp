@@ -284,10 +284,10 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 			//Compute add the encrypted value of the vote to the accumulator
 			if (hasEnding(word, ".txt\""))
 			{
-				voterWeightFileName = "Tally/encryptedWeight_" + to_string(n);
+				voterWeightFileName = "Tally/encryptedWeight_" + to_string(k);
 				//Load encrypted weight
 				voterWeightFile.open(voterWeightFileName);
-				voterWeights[n].load(context, voterWeightFile);
+				voterWeights[k].load(context, voterWeightFile);
 				voterWeightFile.close();
 
 				Ciphertext multiply_result;
