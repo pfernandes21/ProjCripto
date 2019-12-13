@@ -218,14 +218,14 @@ void voter(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 	std::string dataTempFile((std::istreambuf_iterator<char>(tempFile)),
 							 std::istreambuf_iterator<char>());
 
-	unsigned char md[100];
+	/*unsigned char md[100];
 	if(!simpleSHA256((void*)dataTempFile.c_str(), dataTempFile.length(), md))
 	{
 		cout << "yayya mermao" << endl;
 		exit(0);
 	}
-	string mdTemp(reinterpret_cast<char*>(md));
-	char *signature = signMessage(myprivateKey, mdTemp);
+	string mdTemp(reinterpret_cast<char*>(md));*/
+	char *signature = signMessage(myprivateKey, dataTempFile);
 	votesFile << ' ' << signature;
 	votesFile.close();
 
