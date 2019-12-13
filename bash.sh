@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#Initialize config file
+#Initialize config file with number of candidates, voters and trustees
 printf "${2}\n${1}\n${3}" > 'Config.txt';
 cd Admin/;
 #
@@ -8,7 +8,8 @@ cd Admin/;
 cp ElectionKeys/publicKey.txt ../Voter/;
 cp ElectionKeys/publicKey.txt ../Tally/;
 cp ElectionKeys/publicKey.txt ../Counter/;
-#Create Directories
+#
+#Create Admin Directories for CA and Certificates
 rm -r CA;
 mkdir CA;
 chmod 0770 CA;
@@ -21,7 +22,7 @@ openssl genrsa -des3 -out CA/my-ca.key 2048;
 openssl req -new -x509 -days 3650 -key CA/my-ca.key -out CA/my-ca.crt;
 cp CA/my-ca.crt ../Tally/Certs/;
 #
-#Create certificate for voters
+#Create certificate for each voter
 for (( i=0; i<${1}; i++ ))
 do
     echo "Create Certificate for Voter${i}";
@@ -71,6 +72,8 @@ echo "Insert Private Key Password:";
 read pass;
 echo ${pass} > 'password.txt';
 openssl bf -e -in privateKey.txt -out encriptedPrivateKey.txt -pass file:password.txt
+#
+#Delete password and private key
 rm password.txt;
 rm privateKey.txt;
 cd ..;
@@ -78,7 +81,7 @@ cd ..;
 #Create password shares
 source ~/.profile;
 source ~/.cargo/env;
-# Make NTrustees shares with recombination the same threshold
+# Make N Trustees shares with recombination the same threshold
 echo ${pass} | secret-share-split -n ${3} -t ${3} > shares.txt;
 #
 cd ..;

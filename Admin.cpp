@@ -94,6 +94,7 @@ void admin(int n_candidates, int n_voters, int n_trustees)
 	createKeys();
 	createWeights(n_voters);
 
+	//call init bash
 	char command[100];
 	sprintf(command, "./bash.sh %i %i %i", n_voters, n_candidates, n_trustees);
 	system(command);

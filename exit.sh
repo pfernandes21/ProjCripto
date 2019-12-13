@@ -1,4 +1,5 @@
 #!/bin/bash
+#Reset program diretories
 rm -r Voter;
 mkdir Voter;
 rm -r Trustees;
