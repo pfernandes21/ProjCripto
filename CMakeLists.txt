@@ -29,3 +29,5 @@ find_package(SEAL 3.4.4 EXACT REQUIRED
 # Link Microsoft SEAL
 target_link_libraries(election SEAL::seal)
 target_link_libraries(election OpenSSL::Crypto)
+target_link_libraries(signer SEAL::seal)
+target_link_libraries(signer OpenSSL::Crypto)
