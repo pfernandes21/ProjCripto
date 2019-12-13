@@ -293,12 +293,14 @@ void tally(int NUMBERCANDIDATES, int NUMBERVOTERS, int NUMBERTRUSTEES)
 				Ciphertext multiply_result;
 				ifstream voteEncryptedFile;
 				//delete the " " from the begining and end
+				cout << "1word " << word << endl;
 				word.erase(word.begin());
 				word.erase(word.end() - 1);
 				//add path to directorie
 				word = "Ballot/" + word;
 				//Load encrypted vote
 				voteEncryptedFile.open(word);
+				cout << "2word " << word << endl;
 				//Cut word down to obtain Id of candidate
 				word.erase(16);
 				word.erase(word.begin(), word.end() - 1);
