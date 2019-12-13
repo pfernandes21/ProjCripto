@@ -7,7 +7,7 @@ make
 chmod u+x bash.sh
 chmod u+x exit.sh
 ```
-### Para executar o programa:
+### Para executar o programa, correr o seguinte comando na diretoria principal do projeto:
 ```
 ./election [number of candidates] [number of voters] [number of trustees]
 ```
@@ -22,3 +22,4 @@ Para além disso existem duas diretorias que guardam alguma informação:
 - Ballot, que guarda os votos
 - Trustees, que guardam parte da chave privada da eleição até o counter a juntar e desencriptar o resultado da mesma.
 
+Para cada função, existe um README na sua pasta a explicar a sua execução.
